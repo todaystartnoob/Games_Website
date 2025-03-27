@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="게임즈는 한국디지털미디어고등학교의 최장수 동아리로, 2009년부터 유니티 엔진을 사용하여 게임을 개발하고 스팀 등의 플랫폼에 출시하며 다양한 대회에서 수상 경력을 쌓고 있습니다.">
+    <meta name="keywords" content="unity, game, school, dimigo, koreadigitalmediahighschool, gmaes, 게임, 유니티, 동아리, 한국디지털미디어고등학교, 디미고, 게임즈, 스팀 게임 출시, 게임개발 대회 수상, 디미고 동아리, 한국디지털미디어고등학교 동아리, 게임즈 동아리, 디미고 게임즈 동아리, 한국디지털미디어고등학교 게임즈 동아리, 유니티 동아리, 게임 제작 동아리, dimigo games">
+    <link rel="icon" href="./IMAGES/게임즈 창업동아리 로고.png"/> 
+    <title>게임 개발 동아리, GAMES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            padding-top: 70px;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+        }
+        .navbar .nav-item p {
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 15px 30px;
+            color: rgba(0, 0, 0, 0.6);
+            transition: color 0.3s ease-in-out;
+        }
+        .navbar .nav-item p.active {
+            color: #26B5D7;
+            font-weight: bold;
+            transform: scale(1.2);
+        }
+        .navbar .nav-item p:not(.active):hover {
+            transition: all 0.5s;
+            color: #212121;
+        }
+        .navbar img {
+            max-width: 5vw;
+            min-width: 50px; /* 기본 최소 크기 설정 */
+            height: auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .navbar img {
+                max-width: 6vw;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar img {
+                max-width: 7vw;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar img {
+                max-width: 9vw;
+                min-width: 70px; /* 중간 크기 화면에서 너무 작아지지 않도록 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar img {
+                max-width: 12vw;
+                min-width: 90px; /* 모바일에서 확실히 커지게 */
+            }
+        }
+        .achievements-section {
+            text-align: center;
+            margin: 100px 50px;
+            position: relative;
+        }
+
+        /* 연도 선택 버튼을 감싸는 컨테이너 */
+        .year-selector-wrapper {
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+            margin-bottom: 5vh;
+        }
+
+        /* 연도 버튼 스크롤 가능하게 */
+        .year-selector {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+            scroll-behavior: smooth;
+            max-width: 500px; /* 기본적으로 5~6개만 보이도록 제한 */
+        }
+
+        /* 스크롤바 숨기기 */
+        .year-selector::-webkit-scrollbar {
+            display: none;
+        }
+        .year-selector {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 연도 버튼 스타일 */
+        .year-selector button {
+            padding: 12px 18px;
+            font-size: 1rem;
+            border: none;
+            background-color: #fff;
+            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            flex: 0 0 auto;
+        }
+
+        .year-selector button.active {
+            background-color: #26B5D7;
+            color: white;
+            font-weight: bold;
+        }
+
+        /* 수상 실적 컨테이너 */
+        .achievements-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 35px;
+            min-height: 412px; /* 푸터와의 거리 유지 */
+        }
+
+        /* 수상 세트 */
+        .award-set {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.3);
+            width: 60%;
+        }
+
+        /* 왼쪽 이미지 */
+        .award-image {
+            width: 250px;
+            height: 180px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .award-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 오른쪽 텍스트 영역 */
+        .award-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+            flex-grow: 1;
+            word-break: keep-all;
+        }
+
+        /* 대회 이름 */
+        .award-info h3 {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        /* 대회 설명 */
+        .award-info p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        /* 상 이름 */
+        .award-info .award-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #26B5D7;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .award-set {
+                width: 75%;
+            }
+            .award-image {
+                width: 220px;
+                height: 160px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .award-set {
+                width: 85%;
+            }
+            .award-image {
+                width: 200px;
+                height: 140px;
+            }
+            .award-info h3 {
+                font-size: 1.3rem;
+            }
+            .award-info p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .award-set {
+                flex-direction: column;
+                align-items: center;
+                width: 95%;
+                text-align: center;
+            }
+            .award-image {
+                width: 180px;
+                height: 130px;
+            }
+            .award-info {
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .award-set {
+                width: 100%;
+            }
+            .award-image {
+                width: 160px;
+                height: 120px;
+            }
+            .award-info h3 {
+                font-size: 1.2rem;
+            }
+            .award-info p {
+                font-size: 0.9rem;
+            }
+        }
+
+        .footer {
+            background-color: #333;
+            color: rgba(255,255,255,0.4);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footerContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+        .footLogoContainer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .footLogo {
+            width: 50px;
+            opacity: 0.4;
+        }
+        .footText {
+            display: flex;
+            flex-direction: column;
+        }
+        .footText p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .footQRContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .QRs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .QR {
+            width: 50px;
+        }
+        @media (max-width: 768px) {
+            .footerContainer {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footLogoContainer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <img src="./IMAGES/게임즈 창업 동아리 회색.png" alt="Banner Icon" style="max-width: 5vw;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><p onclick="navigateTo('index.html')">홈</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
+                    <li class="nav-item"><p class="active">실적</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('Q&A.html')">질문</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('./IMAGES/test/index.html')">???</p></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+       
+    
+    <div class="achievements-section">
+        <h2 style="font-weight: bold;">게임즈의 실적</h2>
+        
+        <div class="year-selector-wrapper">
+            <div class="year-selector" id="year-selector">
+                <button id="year-2025" onclick="selectYear(2025)" style="color:#C0C0C0">2025</button>
+                <button id="year-2024" onclick="selectYear(2024)">2024</button>
+                <button id="year-2023" onclick="selectYear(2023)" style="color:#C0C0C0">2023</button>
+                <button id="year-2022" onclick="selectYear(2022)">2022</button>
+                <button id="year-2021" onclick="selectYear(2021)" style="color:#C0C0C0">2021</button>
+                <button id="year-2020" onclick="selectYear(2020)" style="color:#C0C0C0">2020</button>
+                <button id="year-2019" onclick="selectYear(2019)">2019</button>
+                <button id="year-2018" onclick="selectYear(2018)">2018</button>
+                <button id="year-2017" onclick="selectYear(2017)">2017</button>
+                <button id="year-2016" onclick="selectYear(2016)">2016</button>
+                <button id="year-2015" onclick="selectYear(2015)">2015</button>
+                <button id="year-2014" onclick="selectYear(2014)" style="color:#C0C0C0">2014</button>
+                <button id="year-2013" onclick="selectYear(2013)" style="color:#C0C0C0">2013</button>
+                <button id="year-2012" onclick="selectYear(2012)">2012</button>
+                <button id="year-2011" onclick="selectYear(2011)" style="color:#C0C0C0">2011</button>
+                <button id="year-2010" onclick="selectYear(2010)" style="color:#C0C0C0">2010</button>
+                <button id="year-2009" onclick="selectYear(2009)" style="color:#C0C0C0">2009</button>
+            </div>
+        </div>
+    
+        <div id="achievements-container" class="achievements-container">
+            <!-- 여기에 수상 실적이 표시됨 -->
+        </div>
+    </div>
+    
+    
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footerContainer">
+            <div class="footLogoContainer">
+                <img class="footLogo" src="./IMAGES/게임즈 창업동아리 로고.png" alt="Logo">
+                <div class="footText">
+                    <p>상상을 실현하는 예술가들</p>
+                    <p style="font-weight: bold;">GAMES</p>
+                </div>
+            </div>
+            <div class="footQRContainer">
+                <div class="QRs">
+                    <img class="QR" id="notionQR1" src="./IMAGES/게임즈 일동 노션.png" alt="Notion" style="cursor: pointer;">
+                    <img class="QR" id="notionQR2" src="./IMAGES/게임즈 창동 노션 qr.png" alt="Notion QR" style="cursor: pointer;">
+                    <img class="QR" id="instaQR" src="./IMAGES/게임즈 창동 인스타.png" alt="Instagram" style="cursor: pointer;">
+                </div>
+                <p>&copy; GAMES All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 페이지 이동 함수
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+        // 수상 실적 데이터 (연도별로 배열 저장, 이미지 URL 추가)
+        const awardsData = {
+            2012: [
+                { 
+                    competition: "SK 플래닛 특성화고 앱 경진 대회", 
+                    description: "SK 플래닛 특성화고 앱 경진 대회는 특성화 고등학교 학생들이 모바일 애플리케이션 개발 능력을 겨루는 대회입니다. 참가자들은 창의적이고 실용적인 앱을 개발하여 제출하며, 선정된 우수 작품에는 상금과 함께 실제 앱 마켓에 출시할 기회가 제공됩니다.", 
+                    award: "은상", 
+                    image: "./IMAGES/contests/2012-1.webp" 
+                },
+                { 
+                    competition: "SK 플래닛 특성화고 앱 경진 대회", 
+                    description: "SK 플래닛 특성화고 앱 경진 대회는 특성화 고등학교 학생들이 모바일 애플리케이션 개발 능력을 겨루는 대회입니다. 참가자들은 창의적이고 실용적인 앱을 개발하여 제출하며, 선정된 우수 작품에는 상금과 함께 실제 앱 마켓에 출시할 기회가 제공됩니다.", 
+                    award: "장려상", 
+                    image: "./IMAGES/contests/2012-1.webp" 
+                },
+                { 
+                    competition: "글로벌 게임제작 경진대회", 
+                    description: "글로벌 게임제작 경진대회는 전 세계 게임 개발자들이 참여하여 혁신적인 게임을 제작하고 경쟁하는 이벤트입니다. 참가자들은 주어진 시간 내에 게임을 완성하여 기술적 능력과 창의성을 선보이며, 우수 작품에는 국제적인 인정과 상금이 주어집니다.", 
+                    award: "금상", 
+                    image: "./IMAGES/contests/2012-2.webp" 
+                },
+                { 
+                    competition: "글로벌 게임제작 경진대회", 
+                    description: "글로벌 게임제작 경진대회는 전 세계 게임 개발자들이 참여하여 혁신적인 게임을 제작하고 경쟁하는 이벤트입니다. 참가자들은 주어진 시간 내에 게임을 완성하여 기술적 능력과 창의성을 선보이며, 우수 작품에는 국제적인 인정과 상금이 주어집니다.", 
+                    award: "장려상", 
+                    image: "./IMAGES/contests/2012-2.webp" 
+                },
+                { 
+                    competition: "제 1회 서강게임캠프", 
+                    description: "제 1회 서강게임캠프는 게임 개발에 관심 있는 학생들과 개발자들을 대상으로 하는 실습 중심의 워크숍입니다. 참가자들은 전문가의 지도하에 게임 기획, 디자인, 프로그래밍 기술을 배우고, 팀 프로젝트를 통해 실제 게임을 만들어 보는 기회를 갖습니다.", 
+                    award: "대상", 
+                    image: "./IMAGES/contests/2012-3.webp" 
+                }
+            ],
+            2015: [
+                { 
+                    competition: "비즈쿨 페스티벌 연구동아리", 
+                    description: "한국디지털미디어고등학교 교내 비즈쿨 페스티벌 연구동아리는 학생들이 창업 아이디어를 구상하고, 실제 비즈니스 모델을 개발해 발표하는 행사입니다. 이 페스티벌은 실제 시장에서의 가능성을 탐구하고, 창의적인 비즈니스 계획을 경쟁적으로 제시하는 기회를 제공합니다.", 
+                    award: "은상", 
+                    image: "./IMAGES/contests/2015-1.webp" 
+                }
+            ],
+            2016: [
+                { 
+                    competition: "인디게임 위크엔드", 
+                    description: "인디게임 위크엔드는 독립 게임 개발자들이 한 주말 동안 모여 게임을 개발하는 이벤트입니다. 참가자들은 협력과 창의성을 바탕으로 새로운 게임을 만들어내며, 이 과정에서 네트워킹과 경험을 쌓을 수 있습니다.", 
+                    award: "동상", 
+                    image: "./IMAGES/contests/2016-1.webp" 
+                }
+            ], // 동일한 구조로 추가
+            2017: [
+                { 
+                    competition: "게임을 사랑하는 게임인 겜춘문예", 
+                    description: "겜춘문예는 게임을 사랑하는 사람들이 자신의 창작물을 공유하고 평가받을 수 있는 문학 공모전입니다. 참가자들은 게임을 주제로 한 시, 단편소설, 또는 에세이를 제출하고, 우수한 작품에는 상과 함께 게임 커뮤니티 내에서의 인정을 받을 수 있습니다.", 
+                    award: "대상", 
+                    image: "./IMAGES/contests/2017-1.webp" 
+                },
+                { 
+                    competition: "Korea WI-Contents Contest", 
+                    description: "Korea WI-Contents Contest는 한국 내 웹 및 인터랙티브 콘텐츠 개발자들을 대상으로 하는 경연 대회로, 혁신적인 디지털 콘텐츠 창작을 장려합니다. 참가자들은 기술과 창의성을 결합한 프로젝트를 제출하며, 우수 작품에는 상금과 함께 업계 내 노출 기회가 제공됩니다.", 
+                    award: "대상", 
+                    image: "./IMAGES/contests/2017-2.webp" 
+                },
+                { 
+                    competition: "교내 비즈쿨 페스티벌 연구동아리", 
+                    description: "한국디지털미디어고등학교 교내 비즈쿨 페스티벌 연구동아리는 학생들이 창업 아이디어를 구상하고, 실제 비즈니스 모델을 개발해 발표하는 행사입니다. 이 페스티벌은 실제 시장에서의 가능성을 탐구하고, 창의적인 비즈니스 계획을 경쟁적으로 제시하는 기회를 제공합니다.", 
+                    award: "금상", 
+                    image: "./IMAGES/contests/2017-3.webp" 
+                }
+            ],
+            2018: [
+                { 
+                    competition: "인디게임 위크엔드", 
+                    description: "인디게임 위크엔드는 독립 게임 개발자들이 한 주말 동안 모여 게임을 개발하는 이벤트입니다. 참가자들은 협력과 창의성을 바탕으로 새로운 게임을 만들어내며, 이 과정에서 네트워킹과 경험을 쌓을 수 있습니다.", 
+                    award: "우수상", 
+                    image: "./IMAGES/contests/2018-1.webp" 
+                }
+            ],
+            2019: [
+                { 
+                    competition: "교내 콘솔 게임 대회", 
+                    description: "한국디지털미디어 고등학교 교내 콘솔 게임 개발 대회는 학생들이 C언어로 콘솔 플랫폼을 위한 게임을 개발하여 창의력과 기술력을 겨루는 경연입니다. 제한된 시간 내에 게임을 완성해야 하며, 우수한 작품에는 상이 수여됩니다.", 
+                    award: "동상", 
+                    image: "./IMAGES/contests/2019-1.webp" 
+                }
+            ],
+            2022: [
+                { 
+                    competition: "Korea WI-Contents Contest", 
+                    description: "Korea WI-Contents Contest는 한국 내 웹 및 인터랙티브 콘텐츠 개발자들을 대상으로 하는 경연 대회로, 혁신적인 디지털 콘텐츠 창작을 장려합니다. 참가자들은 기술과 창의성을 결합한 프로젝트를 제출하며, 우수 작품에는 상금과 함께 업계 내 노출 기회가 제공됩니다.", 
+                    award: "장려상", 
+                    image: "./IMAGES/contests/2022-1.webp" 
+                },
+                { 
+                    competition: "교내 콘솔 게임 대회", 
+                    description: "한국디지털미디어 고등학교 교내 콘솔 게임 개발 대회는 학생들이 C언어로 콘솔 플랫폼을 위한 게임을 개발하여 창의력과 기술력을 겨루는 경연입니다. 제한된 시간 내에 게임을 완성해야 하며, 우수한 작품에는 상이 수여됩니다.", 
+                    award: "금상", 
+                    image: "./IMAGES/contests/2022-2.webp" 
+                },
+                { 
+                    competition: "교내 콘솔 게임 대회", 
+                    description: "한국디지털미디어 고등학교 교내 콘솔 게임 개발 대회는 학생들이 C언어로 콘솔 플랫폼을 위한 게임을 개발하여 창의력과 기술력을 겨루는 경연입니다. 제한된 시간 내에 게임을 완성해야 하며, 우수한 작품에는 상이 수여됩니다.", 
+                    award: "동상", 
+                    image: "./IMAGES/contests/2022-2.webp" 
+                },
+                { 
+                    competition: "교내 콘솔 게임 대회", 
+                    description: "한국디지털미디어 고등학교 교내 콘솔 게임 개발 대회는 학생들이 C언어로 콘솔 플랫폼을 위한 게임을 개발하여 창의력과 기술력을 겨루는 경연입니다. 제한된 시간 내에 게임을 완성해야 하며, 우수한 작품에는 상이 수여됩니다.", 
+                    award: "특별상", 
+                    image: "./IMAGES/contests/2022-2.webp" 
+                }
+            ],
+            2024: [
+                { 
+                    competition: "NC와 함께하는 2024 울산 게임기획 공모전", 
+                    description: "2024 울산 게임기획 공모전은 게임 컨셉과 실행 계획을 제출하는 대회로, 우수한 작품에는 NC에서 인턴십 기회와 상금이 주어집니다.", 
+                    award: "최우수상", 
+                    image: "./IMAGES/contests/2024-2.webp" 
+                },
+                { 
+                    competition: "레드브릭 게임 콘테스트", 
+                    description: "레드브릭 게임 콘테스트는 게임 개발자들이 참신한 게임 아이디어를 실현할 수 있는 플랫폼을 제공합니다. 참가자들은 독창적인 게임을 개발하여 제출하고, 우수한 작품은 상금과 함께 업계에서의 인정을 받게 됩니다.", 
+                    award: "우수상", 
+                    image: "./IMAGES/contests/2024-3.jpg" 
+                },
+                { 
+                    competition: "교내 콘솔 게임 대회", 
+                    description: "한국디지털미디어 고등학교 교내 콘솔 게임 개발 대회는 학생들이 C언어로 콘솔 플랫폼을 위한 게임을 개발하여 창의력과 기술력을 겨루는 경연입니다. 제한된 시간 내에 게임을 완성해야 하며, 우수한 작품에는 상이 수여됩니다.",
+                    award: "금상", 
+                    image: "./IMAGES/contests/2024-1.webp" 
+                },
+                { 
+                    competition: "교내 콘솔 게임 대회", 
+                    description: "한국디지털미디어 고등학교 교내 콘솔 게임 개발 대회는 학생들이 C언어로 콘솔 플랫폼을 위한 게임을 개발하여 창의력과 기술력을 겨루는 경연입니다. 제한된 시간 내에 게임을 완성해야 하며, 우수한 작품에는 상이 수여됩니다.", 
+                    award: "은상", 
+                    image: "./IMAGES/contests/2024-1.webp" 
+                }
+            ]
+        };
+        
+        // 상 이름에 따른 색상 매핑
+        const awardColors = {
+            "금상": "#FFD700",   // 금색
+            "은상": "#A9A9A9",   // 은색
+            "동상": "#CD7F32",   // 동색
+            "대상": "#FF4500",   // 강렬한 주황색
+            "최우수상": "#FF5733",  // 선명한 빨강색
+            "우수상": "#6495ED",  // 연한 파랑색
+            "장려상": "#8A2BE2",  // 보라색
+            "특별상": "#32CD32"   // 연한 녹색
+        };
+
+        // 현재 연도 자동 선택
+        let currentYear = new Date().getFullYear();
+        if (currentYear > 2024) currentYear = 2024;
+        selectYear(currentYear);
+
+        // 연도 선택 기능
+        function selectYear(year) {
+            // 버튼 활성화
+            document.querySelectorAll(".year-selector button").forEach(btn => {
+                btn.classList.remove("active");
+            });
+            document.getElementById(`year-${year}`).classList.add("active");
+
+            // 수상 실적 업데이트
+            const container = document.getElementById("achievements-container");
+            container.innerHTML = ""; // 기존 내용 삭제
+
+            if (awardsData[year]) {
+                awardsData[year].forEach(award => {
+                    // 상 이름에 따른 색상 가져오기 (기본값은 검은색)
+                    let awardColor = awardColors[award.award] || "#333";
+
+                    container.innerHTML += `
+                        <div class="award-set">
+                            <div class="award-image">
+                                <img src="${award.image}" alt="${award.competition} 이미지">
+                            </div>
+                            <div class="award-info">
+                                <h3 style="word-break: keep-all;">${award.competition}</h3>
+                                <p class="award-title" style="color: ${awardColor};">${award.award}</p>
+                                <p>${award.description}</p>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                container.innerHTML = `
+                    <div class="no-data">데이터가 남아있지 않습니다.</div>
+                    <div style="height: 353.7px;"></div> <!-- 푸터와의 여백 추가 -->
+                `;
+            }
+        }
+
+        // 가로 스크롤 기능 추가 (마우스 휠로 스크롤)
+        const yearSelector = document.getElementById("year-selector");
+        yearSelector.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            yearSelector.scrollLeft += event.deltaY * 1; // 부드러운 스크롤
+        });
+
+        let notionQR1 = document.getElementById('notionQR1');
+        let notionQR2 = document.getElementById('notionQR2');
+        let instaQR = document.getElementById('instaQR');
+
+        // 이미지에 클릭 이벤트 리스너 추가
+        notionQR1.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec', '_blank');
+        });
+                // 이미지에 클릭 이벤트 리스너 추가
+        notionQR2.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.notion.so/2024-GAMES-1830f95ca092806e994dc4fb85ead9fa', '_blank');
+        });
+                // 이미지에 클릭 이벤트 리스너 추가
+        instaQR.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.instagram.com/dimi_games_/', '_blank');
+        });
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "EducationalOrganization",
+            "name": "GAMES",
+            "alternateName": "게임즈",
+            "url": "https://www.dimigogames.com",
+            "logo": "./IMAGES/게임즈 창업동아리 로고.png",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service"
+            },
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "안산시",
+                "addressRegion": "경기도",
+                "postalCode": "15255",
+                "streetAddress": "한국디지털미디어고등학교 내"
+            },
+            "sameAs": [
+                "https://www.instagram.com/dimi_games_/",
+                "https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec"
+            ],
+            "founder": "게임즈",
+            "foundingDate": "2009",
+            "description": "게임즈는 유니티를 활용해 독창적인 게임을 제작하고, 스팀 및 다른 플랫폼에 게임을 출시하는 한국디지털미디어고등학교의 동아리입니다. 여러 대회에 참가하여 수상하고, 굿즈 판매 계획도 세우고 있습니다."
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

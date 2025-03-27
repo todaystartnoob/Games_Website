@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="게임즈는 한국디지털미디어고등학교의 최장수 동아리로, 2009년부터 유니티 엔진을 사용하여 게임을 개발하고 스팀 등의 플랫폼에 출시하며 다양한 대회에서 수상 경력을 쌓고 있습니다.">
+    <meta name="keywords" content="unity, game, school, dimigo, koreadigitalmediahighschool, gmaes, 게임, 유니티, 동아리, 한국디지털미디어고등학교, 디미고, 게임즈, 스팀 게임 출시, 게임개발 대회 수상, 디미고 동아리, 한국디지털미디어고등학교 동아리, 게임즈 동아리, 디미고 게임즈 동아리, 한국디지털미디어고등학교 게임즈 동아리, 유니티 동아리, 게임 제작 동아리, dimigo games">
+    <link rel="icon" href="./IMAGES/게임즈 창업동아리 로고.png"/> 
+    <title>게임 개발 동아리, GAMES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            padding-top: 70px;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+        }
+        .navbar .nav-item p {
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 15px 30px;
+            color: rgba(0, 0, 0, 0.6);
+            transition: color 0.3s ease-in-out;
+        }
+        .navbar .nav-item p.active {
+            color: #26B5D7;
+            font-weight: bold;
+            transform: scale(1.2);
+        }
+        .navbar .nav-item p:not(.active):hover {
+            transition: all 0.5s;
+            color: #212121;
+        }
+        .navbar img {
+            max-width: 5vw;
+            min-width: 50px; /* 기본 최소 크기 설정 */
+            height: auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .navbar img {
+                max-width: 6vw;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar img {
+                max-width: 7vw;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar img {
+                max-width: 9vw;
+                min-width: 70px; /* 중간 크기 화면에서 너무 작아지지 않도록 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar img {
+                max-width: 12vw;
+                min-width: 90px; /* 모바일에서 확실히 커지게 */
+            }
+        }
+        /* 연도 선택 버튼을 감싸는 컨테이너 */
+        .year-selector-wrapper {
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+
+        /* 연도 버튼 스크롤 가능하게 */
+        .year-selector {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+            scroll-behavior: smooth;
+            max-width: 500px; /* 기본적으로 5~6개만 보이도록 제한 */
+        }
+
+        /* 스크롤바 숨기기 */
+        .year-selector::-webkit-scrollbar {
+            display: none;
+        }
+        .year-selector {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 연도 버튼 스타일 */
+        .year-selector button {
+            padding: 12px 18px;
+            font-size: 1rem;
+            border: none;
+            background-color: #fff;
+            box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s;
+            flex: 0 0 auto;
+        }
+
+        .year-selector button.active {
+            background-color: #26B5D7;
+            color: white;
+            font-weight: bold;
+        }
+
+        .games-section {
+            text-align: center;
+            margin: 100px 50px;
+            position: relative;
+        }
+
+        /* 게임 제목 */
+        .game-set h3 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        /* 게임 설명 */
+        .game-set p {
+            font-size: 1.2rem;
+            max-width: 85%;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* 유니티 게임 컨테이너 (전체적으로 더 크게 확장) */
+        .unity-container {
+            position: relative;
+            width: 100%;
+            max-width: 2800px; /* 기본 크기 확장 */
+            aspect-ratio: 16 / 9; /* 비율 유지 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* 유니티 게임 iframe */
+        .unity-game {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9; /* 비율 유지 */
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* 반응형 크기 조정 */
+        @media (max-width: 2200px) {
+            .unity-container {
+                max-width: 2400px;
+            }
+        }
+
+        @media (max-width: 1800px) {
+            .unity-container {
+                max-width: 2000px;
+            }
+        }
+
+        @media (max-width: 1600px) {
+            .unity-container {
+                max-width: 1800px;
+            }
+        }
+
+        @media (max-width: 1400px) {
+            .unity-container {
+                max-width: 1600px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .unity-container {
+                max-width: 1300px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .unity-container {
+                max-width: 1100px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .unity-container {
+                max-width: 950px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .unity-container {
+                max-width: 850px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .unity-container {
+                width: 100%;
+                max-width: 800px;
+                padding: 0 10px;
+            }
+
+            .unity-game {
+                width: 100%;
+                height: auto;
+                aspect-ratio: 16 / 9; /* 모바일에서도 비율 유지 */
+            }
+        }
+
+        /* game-set 크기 더 키우기 */
+        .game-set {
+            width: 100%;
+            max-width: 2200px; /* 기본 크기 증가 */
+            padding: 60px;
+            margin: 50px auto;
+            background-color: #fff;
+            box-shadow: 2px 2px 2px #212121;
+            border-radius: 20px;
+            box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* 반응형 game-set 크기 조정 */
+        @media (max-width: 1800px) {
+            .game-set {
+                max-width: 1800px;
+            }
+        }
+
+        @media (max-width: 1600px) {
+            .game-set {
+                max-width: 1600px;
+                padding: 55px;
+            }
+        }
+
+        @media (max-width: 1400px) {
+            .game-set {
+                max-width: 1400px;
+                padding: 50px;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .game-set {
+                max-width: 1200px;
+                padding: 45px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .game-set {
+                max-width: 1000px;
+                padding: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .game-set {
+                max-width: 850px;
+                padding: 35px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .game-set {
+                max-width: 750px;
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .game-set {
+                width: 100%;
+                max-width: 95%;
+                padding: 25px;
+            }
+        }
+
+        .footer {
+            background-color: #333;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footerContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+        .footLogoContainer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .footLogo {
+            width: 50px;
+            opacity: 0.4;
+        }
+        .footText {
+            display: flex;
+            flex-direction: column;
+        }
+        .footText p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .footQRContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .QRs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .QR {
+            width: 50px;
+        }
+        @media (max-width: 768px) {
+            .footerContainer {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footLogoContainer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <img src="./IMAGES/게임즈 창업 동아리 회색.png" alt="Banner Icon" style="max-width: 5vw;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><p onclick="navigateTo('index.html')">홈</p></li>
+                    <li class="nav-item"><p class="active">게임</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('achievements.html')">실적</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('Q&A.html')">질문</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('./IMAGES/test/index.html')">???</p></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+       
+    <div class="games-section">
+        <h2 style="font-weight: bold;">우리의 게임들</h2>
+        
+        <div class="year-selector-wrapper">
+            <div class="year-selector" id="year-selector">
+                <button id="year-2025" onclick="selectYear(2025)" style="color:#C0C0C0">2025</button>
+                <button id="year-2024" onclick="selectYear(2024)">2024</button>
+                <button id="year-2023" onclick="selectYear(2023)" style="color:#C0C0C0">2023</button>
+                <button id="year-2022" onclick="selectYear(2022)" style="color:#C0C0C0">2022</button>
+                <button id="year-2021" onclick="selectYear(2021)" style="color:#C0C0C0">2021</button>
+                <button id="year-2020" onclick="selectYear(2020)" style="color:#C0C0C0">2020</button>
+                <button id="year-2019" onclick="selectYear(2019)" style="color:#C0C0C0">2019</button>
+                <button id="year-2018" onclick="selectYear(2018)" style="color:#C0C0C0">2018</button>
+                <button id="year-2017" onclick="selectYear(2017)" style="color:#C0C0C0">2017</button>
+                <button id="year-2016" onclick="selectYear(2016)" style="color:#C0C0C0">2016</button>
+                <button id="year-2015" onclick="selectYear(2015)" style="color:#C0C0C0">2015</button>
+                <button id="year-2014" onclick="selectYear(2014)" style="color:#C0C0C0">2014</button>
+                <button id="year-2013" onclick="selectYear(2013)" style="color:#C0C0C0">2013</button>
+                <button id="year-2012" onclick="selectYear(2012)" style="color:#C0C0C0">2012</button>
+                <button id="year-2011" onclick="selectYear(2011)" style="color:#C0C0C0">2011</button>
+                <button id="year-2010" onclick="selectYear(2010)" style="color:#C0C0C0">2010</button>
+                <button id="year-2009" onclick="selectYear(2009)" style="color:#C0C0C0">2009</button>
+            </div>
+        </div>
+    
+        <div id="games-container" class="games-container">
+            <!-- 여기에 게임이 표시됨 -->
+        </div>
+    </div>
+    
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footerContainer">
+            <div class="footLogoContainer">
+                <img class="footLogo" src="./IMAGES/게임즈 창업동아리 로고.png" alt="Logo">
+                <div class="footText">
+                    <p>상상을 실현하는 예술가들</p>
+                    <p style="font-weight: bold;">GAMES</p>
+                </div>
+            </div>
+            <div class="footQRContainer">
+                <div class="QRs">
+                    <img class="QR" id="notionQR1" src="./IMAGES/게임즈 일동 노션.png" alt="Notion" style="cursor: pointer;">
+                    <img class="QR" id="notionQR2" src="./IMAGES/게임즈 창동 노션 qr.png" alt="Notion QR" style="cursor: pointer;">
+                    <img class="QR" id="instaQR" src="./IMAGES/게임즈 창동 인스타.png" alt="Instagram" style="cursor: pointer;">
+                </div>
+                <p>&copy; GAMES All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 페이지 이동 함수
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        // 연도별 게임 데이터
+        const gamesData = {
+            2024: [
+                {
+                    name: "MAGNET-DINO",
+                    description: "다른 공룡을 구하기 위해 자석 공룡을 타고 모험을 떠나세요!",
+                    unityUrl: "https://play.unity.com/en/games/eb761067-b190-472e-83df-84d4f96a4688/magnet-dino", // 여기에 유니티 게임 iframe URL 넣기
+                },
+                {
+                    name: "REVERS REALM",
+                    description: "시간을 조작하여 각 단계들을 통과하세요!",
+                    unityUrl: "https://play.unity.com/en/games/2a98ff9b-0bf7-4709-8ae8-f9e2545a882c/reverse-realm", // 여기에 유니티 게임 iframe URL 넣기
+                },
+                {
+                    name: "DER KRUDDERS",
+                    description: "쓰레기 수거 로봇이 되어 로프를 타고 동굴의 쓰레기를 모아 탈출하세요!",
+                    unityUrl: "https://play.unity.com/en/games/2c127933-ff65-4c5f-9d1e-256e2fa5b2ee/der-krudders", // 여기에 유니티 게임 iframe URL 넣기
+                },
+                {
+                    name: "SURVIVOR'S BOW",
+                    description: "활을 쏴서 적들을 물리치고 목적지에 도달하세요!",
+                    unityUrl: "https://play.unity.com/en/games/470a0869-8141-49ed-8e24-003d6b56d467/webgl-builds", // 여기에 유니티 게임 iframe URL 넣기
+                },
+                {
+                    name: "ELECPOL",
+                    description: "전기의 힘을 다루어서 적들을 물리치세요!",
+                    unityUrl: "https://play.unity.com/en/games/8bdedab4-d9a6-40e1-b3e1-0af14b470679/elecpol", // 여기에 유니티 게임 iframe URL 넣기
+                },
+                {
+                    name: "MEHEN",
+                    description: "파괴된 우주정거장을 고쳐 살아남으세요!",
+                    unityUrl: "https://play.unity.com/en/games/dff19d31-6510-454b-82f1-bef625cb0f70/mehen", // 여기에 유니티 게임 iframe URL 넣기
+                }
+            ]
+        };
+
+        // 현재 연도 자동 선택
+        let currentYear = new Date().getFullYear();
+        if (currentYear > 2024) currentYear = 2024;
+        selectYear(currentYear);
+
+        // 연도 선택 기능
+        function selectYear(year) {
+            // 버튼 활성화
+            document.querySelectorAll(".year-selector button").forEach(btn => {
+                btn.classList.remove("active");
+            });
+            document.getElementById(`year-${year}`).classList.add("active");
+
+            // 게임 목록 업데이트
+            const container = document.getElementById("games-container");
+            container.innerHTML = ""; // 기존 내용 삭제
+
+            if (gamesData[year]) {
+                gamesData[year].forEach(game => {
+                    container.innerHTML += `
+                        <div class="game-set">
+                            <h3>${game.name}</h3>
+                            <p>${game.description}</p>
+                            <iframe class="unity-game" src="${game.unityUrl}" allowfullscreen></iframe>
+                        </div>
+                    `;
+                });
+            } else {
+                container.innerHTML = `
+                    <div class="no-data">데이터가 남아있지 않습니다.</div>
+                    <div  style="height: 388px;"></div>
+                `;
+            }
+        }
+
+        // 전체화면 기능
+        function toggleFullscreen(gameId) {
+            let iframe = document.getElementById(gameId);
+            
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.mozRequestFullScreen) {
+                iframe.mozRequestFullScreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        // 가로 스크롤 기능 추가 (마우스 휠로 스크롤)
+        const yearSelector = document.getElementById("year-selector");
+        yearSelector.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            yearSelector.scrollLeft += event.deltaY * 1; // 부드러운 스크롤
+        });
+
+        let notionQR1 = document.getElementById('notionQR1');
+        let notionQR2 = document.getElementById('notionQR2');
+        let instaQR = document.getElementById('instaQR');
+
+        // 이미지에 클릭 이벤트 리스너 추가
+        notionQR1.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec', '_blank');
+        });
+                // 이미지에 클릭 이벤트 리스너 추가
+        notionQR2.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.notion.so/2024-GAMES-1830f95ca092806e994dc4fb85ead9fa', '_blank');
+        });
+                // 이미지에 클릭 이벤트 리스너 추가
+        instaQR.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.instagram.com/dimi_games_/', '_blank');
+        });
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "EducationalOrganization",
+            "name": "GAMES",
+            "alternateName": "게임즈",
+            "url": "https://www.dimigogames.com",
+            "logo": "./IMAGES/게임즈 창업동아리 로고.png",
+            "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service"
+            },
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "안산시",
+                "addressRegion": "경기도",
+                "postalCode": "15255",
+                "streetAddress": "한국디지털미디어고등학교 내"
+            },
+            "sameAs": [
+                "https://www.instagram.com/dimi_games_/",
+                "https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec"
+            ],
+            "founder": "게임즈",
+            "foundingDate": "2009",
+            "description": "게임즈는 유니티를 활용해 독창적인 게임을 제작하고, 스팀 및 다른 플랫폼에 게임을 출시하는 한국디지털미디어고등학교의 동아리입니다. 여러 대회에 참가하여 수상하고, 굿즈 판매 계획도 세우고 있습니다."
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

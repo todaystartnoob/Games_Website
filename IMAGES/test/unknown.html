@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="게임즈는 한국디지털미디어고등학교의 최장수 동아리로, 2009년부터 유니티 엔진을 사용하여 게임을 개발하고 스팀 등의 플랫폼에 출시하며 다양한 대회에서 수상 경력을 쌓고 있습니다.">
+    <meta name="keywords" content="unity, game, school, dimigo, koreadigitalmediahighschool, gmaes, 게임, 유니티, 동아리, 한국디지털미디어고등학교, 디미고, 게임즈, 스팀 게임 출시, 게임개발 대회 수상, 디미고 동아리, 한국디지털미디어고등학교 동아리, 게임즈 동아리, 디미고 게임즈 동아리, 한국디지털미디어고등학교 게임즈 동아리, 유니티 동아리, 게임 제작 동아리, dimigo games">
+    <link rel="icon" href="./IMAGES/게임즈 창업동아리 로고.png"/> 
+    <title>게임 개발 동아리, GAMES</title>
+    <style>
+      body, html {
+        margin: 0;
+        overflow: hidden;
+      }
+      #unity-canvas {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas" width="960" height="600" tabindex="-1" style="background: #231F20"></canvas>
+    <script src="Build/Web_Test.loader.js"></script>
+    <script>
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+
+        var canvas = document.querySelector("#unity-canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.position = "fixed";
+
+        document.body.style.textAlign = "left";
+      }
+
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        arguments: [],
+        dataUrl: "Build/Web_Test.data",
+        frameworkUrl: "Build/Web_Test.framework.js",
+        codeUrl: "Build/Web_Test.wasm",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "2025Games_Presentation",
+        productVersion: "1.0",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+    </script>
+    <script type="application/ld+json">
+      {
+          "@context": "http://schema.org",
+          "@type": "EducationalOrganization",
+          "name": "GAMES",
+          "alternateName": "게임즈",
+          "url": "https://www.dimigogames.com",
+          "logo": "./IMAGES/게임즈 창업동아리 로고.png",
+          "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer service"
+          },
+          "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "안산시",
+              "addressRegion": "경기도",
+              "postalCode": "15255",
+              "streetAddress": "한국디지털미디어고등학교 내"
+          },
+          "sameAs": [
+              "https://www.instagram.com/dimi_games_/",
+              "https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec"
+          ],
+          "founder": "게임즈",
+          "foundingDate": "2009",
+          "description": "게임즈는 유니티를 활용해 독창적인 게임을 제작하고, 스팀 및 다른 플랫폼에 게임을 출시하는 한국디지털미디어고등학교의 동아리입니다. 여러 대회에 참가하여 수상하고, 굿즈 판매 계획도 세우고 있습니다."
+      }
+      </script>
+  </body>
+</html>

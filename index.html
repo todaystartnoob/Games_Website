@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GAMES는 한국디지털미디어고등학교의 최장수 동아리로, 2009년부터 유니티 엔진을 사용하여 게임을 개발하고 스팀 등의 플랫폼에 출시하며 다양한 대회에서 수상 경력을 쌓고 있습니다.">
+    <meta name="keywords" content="unity, game, school, dimigo, koreadigitalmediahighschool, gmaes, 게임, 유니티, 동아리, 한국디지털미디어고등학교, 디미고, 게임즈, 스팀 게임 출시, 게임개발 대회 수상, 디미고 동아리, 한국디지털미디어고등학교 동아리, 게임즈 동아리, 디미고 게임즈 동아리, 한국디지털미디어고등학교 게임즈 동아리, 유니티 동아리, 게임 제작 동아리, dimigo games">
+    <link rel="icon" href="./IMAGES/게임즈 창업동아리 로고.png"/> 
+    <title>디미고 게임 개발 동아리, GAMES</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+            padding-top: 70px;
+            overflow-x: hidden;
+        }
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.3) !important;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            padding: 10px 0;
+        }
+        .navbar .nav-item p {
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 15px 30px;
+            color:rgba(0,0,0,0.6);
+            transition: color 0.3s ease-in-out;
+        }
+        .navbar .nav-item p.active {
+            color: #26B5D7;
+            font-weight: bold;
+            transform: scale(1.2);
+        }
+        .navbar .nav-item p:not(.active):hover {
+            transition: all 0.5s;
+            color: #212121;
+        }
+        .navbar img {
+            max-width: 5vw;
+            min-width: 50px; /* 기본 최소 크기 설정 */
+            height: auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .navbar img {
+                max-width: 6vw;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .navbar img {
+                max-width: 7vw;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar img {
+                max-width: 9vw;
+                min-width: 70px; /* 중간 크기 화면에서 너무 작아지지 않도록 */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .navbar img {
+                max-width: 12vw;
+                min-width: 90px; /* 모바일에서 확실히 커지게 */
+            }
+        }
+        .hero {
+            padding: 80px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+        }
+        .hero .title {
+            flex: 1;
+            max-width: 35%;
+        }
+        .hero img {
+            max-width: 40%;
+            min-width: 200px; /* 너무 작아지지 않도록 최소 크기 설정 */
+            height: auto;
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .hero img {
+                max-width: 30%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero img {
+                max-width: 25%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero img {
+                max-width: 20%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero img {
+                max-width: 18%;
+                min-width: 120px; /* 모바일에서 너무 작아지지 않도록 최소 크기 설정 */
+            }
+        }
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            word-break: keep-all;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: bold;
+            color: #26B5D7;
+        }
+
+        .showourprojects {
+            text-align: center;
+            margin: 100px 0;
+            position: relative;
+        }
+
+        /* 텍스트 위치 조정 */
+        .showourprojects h2:first-of-type {
+            position: relative;
+            top: 20px;  /* 위로 띄우기 */
+        }
+
+        /* 게임 리스트 컨테이너 */
+        .projects-container {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .projects {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* 한 줄에 13개, 화면보다 넓게 설정 */
+        .project-row {
+            display: flex;
+            width: 180%;
+            gap: 20px; /* 간격 추가 */
+        }
+
+        /* 2번째 줄을 왼쪽으로 더 밀어 끝이 안 보이게 */
+        .row-2 {
+            position: relative;
+            left: -20%;
+        }
+
+        /* 이미지 스타일 */
+        .project-item {
+            flex: 0 0 auto;
+            width: 375px; /* 원본 크기 유지 */
+            height: 233px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 이미지 비율 유지하면서 꽉 채움 */
+            border-radius: 10px; /* 살짝 둥글게 */
+        }
+
+        /* 반응형 */
+        @media (max-width: 1200px) {
+            .project-row {
+                width: 200%;
+            }
+            .row-2 {
+                left: -25%;
+            }
+            .project-item {
+                width: 300px;
+                height: 186px;
+            }
+
+            .showourprojects h2:first-of-type {
+                top: 15px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .project-row {
+                width: 220%;
+            }
+            .row-2 {
+                left: -30%;
+            }
+            .project-item {
+                width: 260px;
+                height: 162px;
+            }
+
+            .showourprojects h2:first-of-type {
+                top: 10px;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+            .project-row {
+                width: 240%;
+            }
+            .row-2 {
+                left: -35%;
+            }
+            .project-item {
+                width: 220px;
+                height: 137px;
+            }
+
+            .showourprojects h2:first-of-type {
+                top: 5px;
+            }
+        }
+
+        .youtube-section {
+            text-align: center;
+            margin-top: 300px; /* 기본적으로 300px */
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .youtube-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .youtube-container {
+            position: relative;
+            max-width: 1218px;
+            margin: 0 auto;
+            aspect-ratio: 16 / 9;
+        }
+
+        .youtube-container iframe {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        /* 반응형 - 화면이 작아질수록 margin-top을 줄임 */
+        @media (max-width: 1200px) {
+            .youtube-section {
+                margin-top: 250px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .youtube-section {
+                margin-top: 200px;
+            }
+            .youtube-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .youtube-section {
+                margin-top: 150px;
+            }
+            .youtube-section h2 {
+                font-size: 1.6rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .youtube-section {
+                margin-top: 100px;
+            }
+        }
+
+        .presentation-section {
+            text-align: center;
+            margin-top: 250px; /* 유튜브와의 간격 */
+            margin-bottom: 200px; /* 아래 여백 넉넉하게 */
+        }
+
+        .presentation-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .presentation-section img {
+            max-width: 80%; /* 기본 크기 */
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px; /* 이미지 아래 간격 */
+        }
+
+        .presentation-section p {
+            font-size: 1.2rem;
+            max-width: 70%;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        /* 반응형 - 화면 크기에 따라 조정 */
+        @media (max-width: 1200px) {
+            .presentation-section {
+                margin-top: 200px;
+                margin-bottom: 180px;
+            }
+            .presentation-section img {
+                max-width: 85%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .presentation-section {
+                margin-top: 150px;
+                margin-bottom: 150px;
+            }
+            .presentation-section img {
+                max-width: 90%;
+            }
+            .presentation-section p {
+                font-size: 1.1rem;
+                max-width: 80%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .presentation-section {
+                margin-top: 120px;
+                margin-bottom: 120px;
+            }
+            .presentation-section img {
+                max-width: 95%;
+            }
+            .presentation-section p {
+                font-size: 1rem;
+                max-width: 85%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .presentation-section {
+                margin-top: 100px;
+                margin-bottom: 100px;
+            }
+            .presentation-section img {
+                max-width: 100%;
+            }
+            .presentation-section p {
+                font-size: 0.9rem;
+                max-width: 90%;
+            }
+        }
+
+        .content {
+            min-height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+        }
+        .footer {
+            background-color: #333;
+            color: rgba(255, 255, 255, 0.4);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+        }
+        .footerContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+        .footLogoContainer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .footLogo {
+            width: 50px;
+            opacity: 0.4;
+        }
+        .footText {
+            display: flex;
+            flex-direction: column;
+        }
+        .footText p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .footQRContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .QRs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .QR {
+            width: 50px;
+        }
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero .title {
+                max-width: 100%;
+            }
+            .hero img {
+                margin-top: 20px;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .hero h2 {
+                font-size: 2rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+        }
+        @media (max-width: 768px) {
+            .footerContainer {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footLogoContainer {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <img src="./IMAGES/게임즈 창업 동아리 회색.png" alt="navigation logo Icon" style="max-width: 5vw;">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><p class="active">홈</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('achievements.html')">실적</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('Q&A.html')">질문</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('./IMAGES/test/index.html')">???</p></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="title">
+            <h2>상상을 실현하는 예술가들,</h2>
+            <h1>GAMES</h1>
+            <p style="font-size: 1.3rem; word-break: keep-all;">
+                <strong style="font-weight: bold;">GAMES</strong>는 <span style="font-weight: bold;">유니티</span>를 사용하여 게임을 개발하는 <span style="font-weight: bold;">2009년</span>부터 운영해온 <span style="font-weight: bold;">한국디지털미디어고등학교의 최장수 동아리</span>로 다양한 기획들을 세우고 실현하고 있습니다!
+            </p>
+        </div>
+        <img meta name="viewport" alt="main logo" src="./IMAGES/게임즈 창업동아리 로고.png">
+    </div>
+    
+    <div class="showourprojects">
+        <div class="projects-container">
+            <div class="projects">
+                <!-- 1번째 줄 (왼쪽 이동) -->
+                <div class="project-row row-1">
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 1.png" alt="Game 1"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 19.png" alt="Game 2"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 7.png" alt="Game 3"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 26.png" alt="Game 4"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 5.png" alt="Game 5"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 6.png" alt="Game 6"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 3.png" alt="Game 7"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 8.png" alt="Game 8"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 31.png" alt="Game 9"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 30.png" alt="Game 10"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 11.png" alt="Game 11"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 12.png" alt="Game 12"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 13.png" alt="Game 13"></span>
+                </div>
+    
+                <!-- 2번째 줄 (오른쪽 이동) -->
+                <div class="project-row row-2">
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 25.png" alt="Game 14"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 20.png" alt="Game 15"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 14.png" alt="Game 16"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 23.png" alt="Game 17"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 22.png" alt="Game 18"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 2.png" alt="Game 19"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 15.png" alt="Game 20"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 29.png" alt="Game 21"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 18.png" alt="Game 22"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 17.png" alt="Game 23"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 24.png" alt="Game 24"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 36.png" alt="Game 25"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 4.png" alt="Game 26"></span>
+                </div>
+    
+                <!-- 3번째 줄 (왼쪽 이동) -->
+                <div class="project-row row-3">
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 27.png" alt="Game 27"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 28.png" alt="Game 28"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 21.png" alt="Game 29"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 10.png" alt="Game 30"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 9.png" alt="Game 31"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 32.png" alt="Game 32"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 33.png" alt="Game 33"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 34.png" alt="Game 34"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 35.png" alt="Game 35"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 16.png" alt="Game 36"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 37.png" alt="Game 37"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 38.png" alt="Game 38"></span>
+                    <span class="project-item"><img src="./IMAGES/Games/Frame 39.png" alt="Game 39"></span>
+                </div>
+            </div>
+        </div>
+        <h2 style="font-weight: bold;">저희 <span style="font-weight: 900;">게임즈</span>는 현재까지 <span style="color:#26B5D7; font-weight: 900;">39개</span>의 게임을 제작했습니다!</h2>
+    </div>
+    
+    <div class="youtube-section">
+        <h2 style="font-weight: bold;">우리의 <span style="font-weight: 900; color:#26B5D7">게임을</span> 영상으로 만나보세요!</h2>
+        <div class="youtube-container">
+            <iframe width="1218" height="685" src="https://www.youtube.com/embed/MV5C8RACufY" 
+                title="한국 상위 0.1% 쌉천재 고등학교에서 만든 게임" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin" 
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>    
+       
+    <div class="presentation-section">
+        <h2 style="font-weight: bold;">2024년 사업 기획 발표</h2>
+        <img src="./IMAGES/게임즈 발표.png" alt="게임 발표 이미지">
+        <p style="word-break: keep-all;">작년 <span style="font-weight: bold;">게임즈는</span> 게임을 <span style="font-weight: bold;">기획및 개발</span>하고 이를 직접 <span style="font-weight: bold;">발표</span>하는 소중한 경험을 했습니다. 많은 사람들에게 <span style="font-weight: bold;">우리의 게임</span>을 소개했습니다.</p>
+    </div>
+    
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footerContainer">
+            <div class="footLogoContainer">
+                <img class="footLogo" src="./IMAGES/게임즈 창업동아리 로고.png" alt="Logo">
+                <div class="footText">
+                    <p>상상을 실현하는 예술가들</p>
+                    <p style="font-weight: bold;">GAMES</p>
+                </div>
+            </div>
+            <div class="footQRContainer">
+                <div class="QRs">
+                    <img class="QR" id="notionQR1" src="./IMAGES/게임즈 일동 노션.png" alt="Notion" style="cursor: pointer;">
+                    <img class="QR" id="notionQR2" src="./IMAGES/게임즈 창동 노션 qr.png" alt="Notion QR" style="cursor: pointer;">
+                    <img class="QR" id="instaQR" src="./IMAGES/게임즈 창동 인스타.png" alt="Instagram" style="cursor: pointer;">
+                </div>
+                <p>&copy; GAMES All Rights Reserved</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 페이지 이동 함수
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+
+        window.addEventListener("scroll", function() {
+            let scrollPos = window.scrollY;
+            let row1 = document.querySelector(".row-1");
+            let row2 = document.querySelector(".row-2");
+            let row3 = document.querySelector(".row-3");
+
+            row1.style.transform = `translateX(${-(scrollPos * 0.14)}px)`; // 왼쪽 이동
+            row2.style.transform = `translateX(${(scrollPos * 0.14)}px)`;  // 오른쪽 이동 + 더 왼쪽으로 밀기
+            row3.style.transform = `translateX(${-(scrollPos * 0.14)}px)`; // 왼쪽 이동
+        });
+
+        let notionQR1 = document.getElementById('notionQR1');
+        let notionQR2 = document.getElementById('notionQR2');
+        let instaQR = document.getElementById('instaQR');
+
+        // 이미지에 클릭 이벤트 리스너 추가
+        notionQR1.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec', '_blank');
+        });
+                // 이미지에 클릭 이벤트 리스너 추가
+        notionQR2.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.notion.so/2024-GAMES-1830f95ca092806e994dc4fb85ead9fa', '_blank');
+        });
+                // 이미지에 클릭 이벤트 리스너 추가
+        instaQR.addEventListener('click', function() {
+            // 사용자를 원하는 URL로 리디렉션
+            window.open('https://www.instagram.com/dimi_games_/', '_blank');
+        });
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "GAMES",
+        "alternateName": "게임즈",
+        "url": "https://www.dimigogames.com",
+        "logo": "./IMAGES/게임즈 창업동아리 로고.png",
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "customer service"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "안산시",
+            "addressRegion": "경기도",
+            "postalCode": "15255",
+            "streetAddress": "한국디지털미디어고등학교 내"
+        },
+        "sameAs": [
+            "https://www.instagram.com/dimi_games_/",
+            "https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec"
+        ],
+        "founder": "게임즈",
+        "foundingDate": "2009",
+        "description": "게임즈는 유니티를 활용해 독창적인 게임을 제작하고, 스팀 및 다른 플랫폼에 게임을 출시하는 한국디지털미디어고등학교의 동아리입니다. 여러 대회에 참가하여 수상하고, 굿즈 판매 계획도 세우고 있습니다."
+    }
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
