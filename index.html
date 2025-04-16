@@ -597,6 +597,7 @@
                     <img class="QR" id="notionQR1" src="./IMAGES/게임즈 일동 노션.png" alt="Notion" style="cursor: pointer;">
                     <img class="QR" id="notionQR2" src="./IMAGES/게임즈 창동 노션 qr.png" alt="Notion QR" style="cursor: pointer;">
                     <img class="QR" id="instaQR" src="./IMAGES/게임즈 창동 인스타.png" alt="Instagram" style="cursor: pointer;">
+                    <img class="QR" id="youtubeQR" src="./IMAGES/게임즈 유튜브 qr.png" alt="youtube" style="cursor: pointer;">
                 </div>
                 <p>&copy; GAMES All Rights Reserved</p>
             </div>
@@ -623,6 +624,7 @@
         let notionQR1 = document.getElementById('notionQR1');
         let notionQR2 = document.getElementById('notionQR2');
         let instaQR = document.getElementById('instaQR');
+        let youtubeQR = document.getElementById('youtubeQR');
 
         // 이미지에 클릭 이벤트 리스너 추가
         notionQR1.addEventListener('click', function() {
@@ -639,6 +641,9 @@
             // 사용자를 원하는 URL로 리디렉션
             window.open('https://www.instagram.com/dimi_games_/', '_blank');
         });
+        youtubeQR.addEventListener('click', function(){
+            window.open('https://www.youtube.com/channel/UCziJG7wTrfKEj6tiL-of2_A', '_blank')
+        })
     </script>
     <script type="application/ld+json">
     {
