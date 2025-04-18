@@ -101,13 +101,12 @@
             width: 100%;
             display: flex;
             flex-wrap: wrap; /* 줄바꿈 허용 */
-            justify-content: flex-start; /* 왼쪽 정렬 */
-            gap: 2%; /* 간격 조정 (원하는 간격으로 조절) */
+            justify-content: flex-start;
+            gap:2%;
         }
 
         .goods-item {
-            width: 18%; /* 5개 기준 */
-            margin-bottom: 20px; /* 줄 간격 */
+            width: 23.15%; 
             transition: all 0.3s;
             margin-bottom: 50px; 
         }
@@ -119,7 +118,7 @@
             width:100%;
             overflow: hidden;
             border-radius: 2%;
-            aspect-ratio: 1 / 1.3; 
+            aspect-ratio: 1 / 1; 
         }
         .goods-image{
             width:100%;
@@ -130,6 +129,11 @@
             padding-top: 5%;
             width: 100%;
             height:20%;
+        }
+        .brand-name{
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0;
         }
         .item-name{
             font-size: 1.5rem;
@@ -225,31 +229,31 @@
             }
         }
         @media (max-width: 992px) {
-    .goods-item {
-        width: 30%; /* 3개 한 줄 */
-    }
-    }
-
-    @media (max-width: 768px) {
-        .goods-category-name {
-            font-size: 2.5rem; /* 제목도 조금 작게 */
-        }
         .goods-item {
-            width: 45%; /* 2개 한 줄 */
+            width: 31.33%; /* 3개 한 줄 */
         }
-        .item-name {
-            font-size: 1.2rem;
         }
-        .item-price {
-            font-size: 1.5rem;
-        }
-    }
 
-    @media (max-width: 480px) {
-        .goods-item {
-            width: 100%; /* 1개 한 줄 (안 터지게 안전용) */
+        @media (max-width: 768px) {
+            .goods-category-name {
+                font-size: 2.5rem; /* 제목도 조금 작게 */
+            }
+            .goods-item {
+                width: 48%; /* 2개 한 줄 */
+            }
+            .item-name {
+                font-size: 1.2rem;
+            }
+            .item-price {
+                font-size: 1.5rem;
+            }
         }
-    }
+
+        @media (max-width: 480px) {
+            .goods-item {
+                width: 100%; /* 1개 한 줄 (안 터지게 안전용) */
+            }
+        }
     </style>
 </head>
 <body>
@@ -284,6 +288,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -293,6 +298,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -302,6 +308,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -311,6 +318,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -320,6 +328,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -329,6 +338,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -338,49 +348,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="goodsContainer">
-            <div class="goods-category">
-                <p class="goods-category-name">게임즈 굿즈</p>
-            </div>
-            <div class="goods-items">
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -397,6 +365,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -406,6 +375,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -415,6 +385,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -424,15 +395,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -449,6 +412,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -458,6 +422,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -467,6 +432,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -476,6 +442,17 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="sendOrder()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -492,6 +469,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -501,6 +479,7 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -510,6 +489,54 @@
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
                     <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="sendOrder()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="goodsContainer">
+            <div class="goods-category">
+                <p class="goods-category-name">게임즈 굿즈</p>
+            </div>
+            <div class="goods-items">
+                <div class="goods-item" onclick="sendOrder()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="sendOrder()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="sendOrder()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
                         <p class="item-name">게임즈 키캡</p>
                         <p class="item-price">3,300 원</p>
                     </div>
@@ -543,7 +570,7 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-          alert('아직 개발중입니다');
+          //alert('아직 개발중입니다');
         });
     </script>     
 
