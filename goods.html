@@ -197,6 +197,7 @@
     
     <div class="content">
         <h1 class="comingSoon">아직 준비중입니다.</h1>
+        <button onclick="sendOrder()" class="btn btn-outline-primary mt-4">굿즈 주문 테스트</button>
     </div>
 
     <!-- Footer -->
@@ -250,6 +251,27 @@
         youtubeQR.addEventListener('click', function(){
             window.open('https://www.youtube.com/channel/UCziJG7wTrfKEj6tiL-of2_A', '_blank')
         })
+    </script>
+    <script>
+        function sendOrder() {
+        fetch("http://34.169.192.54:3000/api/order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+            orderId: "test-20250418",
+            orderName: "게임즈 후드티",
+            customerName: "홍길동",
+            contact: "010-1234-5678"
+            })
+        })
+            .then(res => res.json())
+            .then(data => {
+            alert(data.message); // 서버에서 메시지 받으면 알림창 표시
+            })
+            .catch(err => {
+            alert("주문 요청 실패: " + err.message);
+            });
+        }
     </script>
     <script type="application/ld+json">
     {
