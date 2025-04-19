@@ -1,5 +1,7 @@
 app.post('/api/select',(req,res)=>{
     const {productID} = req.bod
+
+    res.json({ message: 'success' })
 })
 
 app.post('/api/order', (req, res) => {

@@ -646,6 +646,10 @@
                     productID: "test"
                 })
             })
+                .then(res => res.json())
+                .catch(err => {
+                alert("다시 시도해 주십시오" + err.message);
+                });
             window.location.href = 'product.html';
         }
     </script>
