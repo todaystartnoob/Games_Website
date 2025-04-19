@@ -112,12 +112,12 @@
         }
         .goods-item:hover{
             transition: all 0.5s;
-            transform: scale(1.1);
+            transform: scale(1.06);
         }
         .goods-images{
             width:100%;
             overflow: hidden;
-            border-radius: 2%;
+            border-radius: 5%;
             aspect-ratio: 1 / 1; 
         }
         .goods-image{
@@ -260,13 +260,13 @@
     <!-- Top Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <img src="./IMAGES/게임즈 로고_게임즈 창업동아리 회색.svg" alt="navigation logo Icon" style="max-width: 5vw; cursor: pointer;" onclick="navigateTo('index.html')">
+            <img src="./IMAGES/게임즈 로고_게임즈 창업동아리 회색.svg" alt="navigation logo Icon" style="max-width: 6vw; cursor: pointer;" onclick="navigateTo('index.html')">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><p onclick="navigateTo('index.html')">홈</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('/')">홈</p></li>
                     <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
                     <li class="nav-item"><p onclick="navigateTo('achievements.html')">실적</p></li>
                     <li class="nav-item"><p class="active">굿즈</p></li>
@@ -283,7 +283,7 @@
                 <p class="goods-category-name">게임즈 굿즈</p>
             </div>
             <div class="goods-items">
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -293,7 +293,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -303,7 +303,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -313,7 +313,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -323,7 +323,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -333,7 +333,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -343,54 +343,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="brand-name">게임즈</p>
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="goodsContainer">
-            <div class="goods-category">
-                <p class="goods-category-name">게임즈 굿즈</p>
-            </div>
-            <div class="goods-items">
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="brand-name">게임즈</p>
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="brand-name">게임즈</p>
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="brand-name">게임즈</p>
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -407,7 +360,7 @@
                 <p class="goods-category-name">게임즈 굿즈</p>
             </div>
             <div class="goods-items">
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -417,7 +370,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -427,7 +380,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -437,17 +390,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
-                    <div class="goods-images">
-                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
-                    </div>
-                    <div class="goods-description">
-                        <p class="brand-name">게임즈</p>
-                        <p class="item-name">게임즈 키캡</p>
-                        <p class="item-price">3,300 원</p>
-                    </div>
-                </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -464,7 +407,7 @@
                 <p class="goods-category-name">게임즈 굿즈</p>
             </div>
             <div class="goods-items">
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -474,7 +417,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -484,7 +427,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -494,7 +437,17 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -511,7 +464,7 @@
                 <p class="goods-category-name">게임즈 굿즈</p>
             </div>
             <div class="goods-items">
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -521,7 +474,7 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -531,7 +484,54 @@
                         <p class="item-price">3,300 원</p>
                     </div>
                 </div>
-                <div class="goods-item" onclick="sendOrder()">
+                <div class="goods-item" onclick="selectProduct()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="selectProduct()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="goodsContainer">
+            <div class="goods-category">
+                <p class="goods-category-name">게임즈 굿즈</p>
+            </div>
+            <div class="goods-items">
+                <div class="goods-item" onclick="selectProduct()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="selectProduct()">
+                    <div class="goods-images">
+                        <img class="goods-image" src="./IMAGES/goods/test.jpg">
+                    </div>
+                    <div class="goods-description">
+                        <p class="brand-name">게임즈</p>
+                        <p class="item-name">게임즈 키캡</p>
+                        <p class="item-price">3,300 원</p>
+                    </div>
+                </div>
+                <div class="goods-item" onclick="selectProduct()">
                     <div class="goods-images">
                         <img class="goods-image" src="./IMAGES/goods/test.jpg">
                     </div>
@@ -570,7 +570,7 @@
 
     <script>
         window.addEventListener('DOMContentLoaded', function() {
-          alert('아직 개발중입니다');
+          //alert('아직 개발중입니다');
         });
     </script>     
 
@@ -605,13 +605,58 @@
         })
     </script>
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          fetch("https://api.dimigo.games/api/products")
+            .then((res) => res.json())
+            .then((products) => {
+              const container = document.getElementById("goods-list");
+        
+              products.forEach((product) => {
+                const item = document.createElement("div");
+                item.className = "goods-item";
+                item.onclick = () => {
+                  window.location.href = `product.html?id=${product.id}`;
+                };
+        
+                item.innerHTML = `
+                  <div class="goods-images">
+                      <img class="goods-image" src="${product.image}" alt="${product.name}">
+                  </div>
+                  <div class="goods-description">
+                      <p class="brand-name">${product.brand}</p>
+                      <p class="item-name">${product.name}</p>
+                      <p class="item-price">${product.price.toLocaleString()} 원</p>
+                  </div>
+                `;
+        
+                container.appendChild(item);
+              });
+            })
+            .catch((err) => {
+              console.error("굿즈 로딩 실패:", err);
+            });
+        });
+    </script>        
+    <script>
+        function selectProduct(){
+            fetch("https://api.dimigo.games/api/select", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: Json.stringify({
+                    productID: "test"
+                })
+            })
+            window.location.href = 'product.html';
+        }
+    </script>
+    <script>
         function sendOrder() {
         fetch("https://api.dimigo.games/api/order", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
             orderId: "test-20250418",
-            orderName: "게임즈 후드티",
+            orderName: "게임즈 키캡",
             customerName: "홍길동",
             contact: "010-1234-5678"
             })
