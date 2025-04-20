@@ -10,14 +10,22 @@
     <meta property="og:description" content="한국디지털미디어 고등학교의 학생들이 만든 게임을 플레이하세요!" />
     <meta property="og:image" content="https://dimigo.games/IMAGES/%EA%B2%8C%EC%9E%84%EC%A6%88%20%EC%B0%BD%EC%97%85%EB%8F%99%EC%95%84%EB%A6%AC%20%EB%A1%9C%EA%B3%A0.png" />
     <meta property="og:url" content="https://dimigo.games/" />
+    <meta name="google" content="notranslate">
     <title>인디게임 개발 동아리, GAMES</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
     <style>
+        html, body{
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
         body {
             font-family: 'Pretendard', sans-serif;
             padding-top: 70px;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
         .navbar {
             background-color: rgba(255, 255, 255, 0.3) !important;
@@ -80,34 +88,212 @@
             }
         }
 
-        .content{
-            width: 100vw;
+        .content {
+            flex: 1;
+            padding: 1rem 0;
         }
-        .productContainer{
-            width: 90%;
-            height: 85vh;
-            margin: auto;
+
+        /* ─── 콘텐츠 영역 ─────────────────────────────────────────── */
+        .content {
+        flex: 1;
+        width: 100%;
+        padding: 2rem 0;
+        }
+
+        /* ─── 상품 컨테이너 ───────────────────────────────────────── */
+        .product-container {
+        display: flex;
+        gap: 2rem;
+        width: 90%;
+        margin: 0 auto;
+        align-items: stretch;
+        }
+
+        /* ─── 좌측 이미지 + 배지 ─────────────────────────────────── */
+        .product-gallery.single {
+        flex: 0 0 45%;
+        }
+        .product-gallery.single .main-image {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        }
+        .product-gallery.single .main-image img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        }
+        .badge {
+        position: absolute;
+        top: 1rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.75rem;
+        font-weight: bold;
+        border-radius: 4px;
+        }
+        .badge--primary {
+        left: 1rem;
+        background-color: #1474FF;
+        color: #fff;
+        }
+        .badge--secondary {
+        right: 1rem;
+        background-color: #F1F1F3;
+        color: #212121;
+        }
+
+        /* ─── 우측 상세 정보 ─────────────────────────────────────── */
+        .product-details {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        }
+        .category-label {
+        font-size: 1rem;
+        color: #999;
+        margin-bottom: 0.3rem;
+        }
+        .title {
+        font-size: 2rem;
+        font-weight: bold;
+        margin: 0 0 0.5rem;
+        }
+        .breadcrumb {
+        font-size: 0.9rem;
+        color: #757575;
+        margin-bottom: 1rem;
+        }
+        .price {
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        }
+
+        /* ─── 수량 선택 ───────────────────────────────────────────── */
+        .qty-row {
             display: flex;
-            justify-content: space-around;
+            align-items: center;
+            justify-content: space-between;
+            margin: 1.5rem 0 1rem;
         }
-        .product-images{
-            width:35%;
-            height: 70%;
-            margin: auto 0;
-            overflow: hidden;
-            border-radius: 2%;
-            aspect-ratio: 1 / 1; 
+        .row-label {
+        font-size: 1rem;
         }
-        .product-image{
-            width:100%;
-            height:100%;
-            object-fit: cover;
+        .qty-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: #F0F0F0;
+        border-radius: 8px;
+        padding: 0 1rem;
+        height: 3rem;
         }
-        .product-description{
-            background-color: red;
-            margin: auto 0;
-            width:50%;
-            height: 85%;
+        .qty-box .qty-btn {
+        border: none;
+        background: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        width: 2rem;
+        height: 2rem;
+        line-height: 2rem;
+        }
+        .qty-box input {
+        width: 2rem;
+        text-align: center;
+        border: none;
+        background: none;
+        font-size: 1rem;
+        outline: none;
+        }
+
+        /* ─── 총액 ───────────────────────────────────────────────── */
+        .total-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.1rem;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        }
+
+        /* ─── 전화번호·주소 입력 ─────────────────────────────────── */
+        .inputs {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+        }
+        .inputs input {
+        flex: 1;
+        padding: 0.6rem 0;
+        font-size: 1rem;
+        border: none;
+        border-bottom: 1px solid #CCC;
+        outline: none;
+        }
+        .inputs input:focus {
+        border-color: #1474FF;
+        }
+
+        .order-section {
+            display: flex;
+            align-items: flex-end; /* 버튼 기준 아래 맞춤 */
+            gap: 2rem;
+            margin: 4rem 0 0 0;
+        }
+
+        /* ─── 주문 버튼 ───────────────────────────────────────────── */
+        .order-btn {
+            background-color: #29C0E8;
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            padding: 0.8rem 0;
+            width: 40%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .order-btn:hover {
+        background-color: #1FAAC2;
+        }
+
+        /* ─── 배송 안내 ───────────────────────────────────────────── */
+        .shipping-info {
+        font-size: 0.9rem;
+        color: #757575;
+        line-height: 1.4;
+        }
+
+        /* ─── 반응형 ───────────────────────────────────────────────── */
+        @media (max-width: 992px) {
+            .qty-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .order-section {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            .product-container {
+                flex-direction: column;
+                width: 95%;
+                gap: 1.5rem;
+            }
+            .product-gallery.single,
+            .product-details {
+                flex: none;
+                width: 100%;
+            }
+            .inputs {
+                flex-direction: column;
+            }
+            .order-btn {
+                width: 100%;
+            }
         }
 
         .footer {
@@ -116,6 +302,7 @@
             padding: 20px 0;
             display: flex;
             justify-content: center;
+            flex-shrink: 0;
         }
         .footerContainer {
             display: flex;
@@ -207,7 +394,7 @@
                     <li class="nav-item"><p onclick="navigateTo('/')">홈</p></li>
                     <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
                     <li class="nav-item"><p onclick="navigateTo('achievements.html')">실적</p></li>
-                    <li class="nav-item"><p class="active">굿즈</p></li>
+                    <li class="nav-item"><p class="active" onclick="navigateTo('goods.html')">굿즈</p></li>
                     <li class="nav-item"><p onclick="navigateTo('Q&A.html')">질문</p></li>
                     <li class="nav-item"><p onclick="navigateTo('./IMAGES/test/unknown.html')">???</p></li>
                 </ul>
@@ -216,16 +403,62 @@
     </nav>
     
     <div class="content">
-        <div class="productContainer">
-            <div class="product-images">
-                <img class="product-image" src="./IMAGES/goods/test.jpg">
+        <div class="product-container">
+          <!-- ─── 좌측: 이미지 + 뱃지 ──────────────────────────── -->
+          <div class="product-gallery single">
+            <div class="main-image">
+              <span class="badge badge--primary">Games</span>
+              <span class="badge badge--secondary">아크릴 키링</span>
+              <img src="./IMAGES/goods/test.jpg" alt="상품 이미지">
             </div>
-            <div class="product-description">
-                <p></p>
-                <div></div>
+          </div>
+      
+          <!-- ─── 우측: 상품 정보 영역 ──────────────────────────── -->
+          <div class="product-details">
+            <div class="category-label">게임즈</div>
+            <h1 class="title">게임즈 키캡</h1>
+            <div class="breadcrumb">굿즈 &gt; 게임즈 &gt; 게임즈 키캡</div>
+            <div class="price">10,000 원</div>
+      
+            <!-- 수량 선택 -->
+            <div class="qty-row">
+              <div class="row-label">수량</div>
+              <div class="qty-box">
+                <button type="button" id="qty-decrease" class="qty-btn">−</button>
+                <input type="number" id="qty-input" value="1" min="1" readonly>
+                <button type="button" id="qty-increase" class="qty-btn">＋</button>
+              </div>
             </div>
+      
+            <!-- 총액 -->
+            <div class="total-row">
+              <div class="row-label">총 상품 금액</div>
+              <div class="total-amount">10,000 원</div>
+            </div>
+      
+            <!-- 주문 폼 시작 -->
+            <form id="order-form" autocomplete="off">
+              <!-- 전화번호·주소 입력 -->
+              <div class="inputs">
+                <input type="tel" id="phone" placeholder="전화번호" required>
+                <input type="text" id="address" placeholder="주소지" required>
+              </div>
+      
+              <!-- 주문 버튼 + 배송 안내 -->
+              <div class="order-section">
+                <button type="submit" class="order-btn">구매하기</button>
+                <div class="shipping-info">
+                  배송안내<br>
+                  기본 배달비 2,000 원 | 일반 택배 (우체국택배)<br>
+                  30,000 원 이상 구매시 무료 배송
+                </div>
+              </div>
+            </form>
+            <!-- 주문 폼 끝 -->
+          </div>
         </div>
-    </div>
+      </div>    
+  
 
     <!-- Footer -->
     <footer class="footer">
@@ -280,26 +513,97 @@
         })
     </script>
     <script>
-        function sendOrder() {
-        fetch("https://api.dimigo.games/api/order", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-            orderId: "test-20250418",
-            orderName: "게임즈 키캡",
-            customerName: "홍길동",
-            contact: "010-1234-5678"
+        (function(){
+          const unitPrice   = 10000;                                      // 단가
+          const qtyInput    = document.getElementById('qty-input');
+          const decBtn      = document.getElementById('qty-decrease');
+          const incBtn      = document.getElementById('qty-increase');
+          const totalDisplay= document.querySelector('.total-amount');
+        
+          function updateTotal(q) {
+            totalDisplay.textContent = (unitPrice * q).toLocaleString() + ' 원';
+          }
+        
+          decBtn.addEventListener('click', ()=> {
+            let q = parseInt(qtyInput.value,10);
+            if (q > parseInt(qtyInput.min,10)) {
+              qtyInput.value = --q;
+              updateTotal(q);
+            }
+          });
+        
+          incBtn.addEventListener('click', ()=> {
+            let q = parseInt(qtyInput.value,10) + 1;
+            qtyInput.value = q;
+            updateTotal(q);
+          });
+        
+          // 초기 총액 세팅
+          updateTotal(parseInt(qtyInput.value,10));
+        })();
+    </script>
+        
+    <script>
+        (function(){
+            const unitPrice    = 10000;
+            const qtyInput     = document.getElementById('qty-input');
+            const decBtn       = document.getElementById('qty-decrease');
+            const incBtn       = document.getElementById('qty-increase');
+            const totalDisplay = document.querySelector('.total-amount');
+        
+            function updateTotal(q) {
+            totalDisplay.textContent = (unitPrice * q).toLocaleString() + ' 원';
+            }
+        
+            decBtn.addEventListener('click', () => {
+            let q = parseInt(qtyInput.value, 10);
+            if (q > parseInt(qtyInput.min, 10)) {
+                qtyInput.value = --q;
+                updateTotal(q);
+            }
+            });
+        
+            incBtn.addEventListener('click', () => {
+            let q = parseInt(qtyInput.value, 10) + 1;
+            qtyInput.value = q;
+            updateTotal(q);
+            });
+        
+            // 초기 총액
+            updateTotal(parseInt(qtyInput.value, 10));
+        
+            // 주문 폼 submit
+            document.getElementById('order-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const phone    = document.getElementById('phone');
+            const address  = document.getElementById('address');
+            const quantity = parseInt(qtyInput.value, 10);
+        
+            fetch("https://api.dimigo.games/api/order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                orderId:         "order-" + Date.now(),
+                orderName:       "게임즈 키캡",
+                customerPhone:   phone.value,
+                customerAddress: address.value,
+                quantity:        quantity
+                })
             })
-        })
             .then(res => res.json())
             .then(data => {
-            alert(data.message); // 서버에서 메시지 받으면 알림창 표시
+                alert(data.message || "주문이 접수되었습니다!");
+                // 주문 완료 후 입력값 초기화
+                phone.value = '';
+                address.value = '';
             })
             .catch(err => {
-            alert("주문 요청 실패: " + err.message);
+                alert("주문 요청 실패: " + err.message);
             });
-        }
+            });
+        })();
     </script>
+                    
     <script type="application/ld+json">
     {
         "@context": "http://schema.org",
