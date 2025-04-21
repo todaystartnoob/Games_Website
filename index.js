@@ -1,4 +1,3 @@
-// server.js
 require('dotenv').config();
 const express  = require('express');
 const cors     = require('cors'); 
@@ -94,7 +93,21 @@ app.delete('/api/goods/:id', async (req, res) => {
   }
 });
 
-// (옵션) 주문 내역 저장/조회 라우트도 동일하게 여기에 놓을 수 있습니다...  
+//비밀번호 확인
+app.post('/api/manage', async(req, res)=> {
+    console.log('🔑 관리 페이지 비밀번호 입력:', req.body.password);
+    try {
+        const { password } = req.body;
+        if (password == 'games_is_best') {
+          return res.json({ success: true });
+        } else {
+          return res.status(401).json({ success: false });
+        }
+    } catch (err) {
+        console.error('관리 페이지 인증 중 오류:', err);
+        return res.status(500).json({ error: '오류가 발생했습니다.' });
+    }
+});
 
 // 4) 정적 파일 서빙 (반드시 API 라우트 다음에)
 app.use(express.static(path.join(__dirname, 'public')));
