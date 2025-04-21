@@ -3,11 +3,11 @@ require('dotenv').config();
 const express  = require('express');
 const mongoose = require('mongoose');
 const path     = require('path');
+const morgan   = require('morgan');
 
 const app      = express();
 const PORT     = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI
-  || 'mongodb://localhost:27017/games';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/games';
 
 // 1) MongoDB 연결
 mongoose.connect(MONGO_URI, {
@@ -17,35 +17,25 @@ mongoose.connect(MONGO_URI, {
 .then(() => console.log('✅ MongoDB connected'))
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
-app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+// 2) 공통 미들웨어
+app.use(morgan('dev'));       // 요청 로깅
+app.use(express.json());      // JSON body 파싱
 
-// 2) 스키마 정의
+// 3) Mongoose 스키마/모델
 const goodSchema = new mongoose.Schema({
-  name:        { type: String,  required: true },
-  price:       { type: Number,  required: true },
+  name:        { type: String, required: true },
+  price:       { type: Number, required: true },
   category:    { type: String },
   imageUrl:    { type: String },
   description: { type: String }
 }, { timestamps: true });
+const Good = mongoose.model('Good', goodSchema);
 
-const orderSchema = new mongoose.Schema({
-  orderId:         { type: String, required: true },
-  orderName:       { type: String, required: true },
-  quantity:        { type: Number, required: true },
-  customerName:    { type: String },
-  customerPhone:   { type: String },
-  customerAddress: { type: String }
-}, { timestamps: true });
+// --- API 라우트들 ---
 
-const Good  = mongoose.model('Good', goodSchema);
-const Order = mongoose.model('Order', orderSchema);
-
-
-// 3) 상품 관리 API
-
-// (1) 전체 상품 조회
+// 전체 상품 조회
 app.get('/api/goods', async (req, res) => {
+  console.log('📣 GET /api/goods called');
   try {
     const goods = await Good.find().sort({ createdAt: -1 });
     res.json(goods);
@@ -54,8 +44,9 @@ app.get('/api/goods', async (req, res) => {
   }
 });
 
-// (2) 단일 상품 조회
+// 단일 상품 조회
 app.get('/api/goods/:id', async (req, res) => {
+  console.log(`📣 GET /api/goods/${req.params.id} called`);
   try {
     const good = await Good.findById(req.params.id);
     if (!good) return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
@@ -65,8 +56,9 @@ app.get('/api/goods/:id', async (req, res) => {
   }
 });
 
-// (3) 상품 추가
+// 상품 추가
 app.post('/api/goods', async (req, res) => {
+  console.log('📣 POST /api/goods called', req.body);
   try {
     const good = new Good(req.body);
     await good.save();
@@ -76,8 +68,9 @@ app.post('/api/goods', async (req, res) => {
   }
 });
 
-// (4) 상품 수정
+// 상품 수정
 app.put('/api/goods/:id', async (req, res) => {
+  console.log(`📣 PUT /api/goods/${req.params.id} called`, req.body);
   try {
     const good = await Good.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
     if (!good) return res.status(404).json({ error: '상품을 찾을 수 없습니다.' });
@@ -87,8 +80,9 @@ app.put('/api/goods/:id', async (req, res) => {
   }
 });
 
-// (5) 상품 삭제
+// 상품 삭제
 app.delete('/api/goods/:id', async (req, res) => {
+  console.log(`📣 DELETE /api/goods/${req.params.id} called`);
   try {
     await Good.findByIdAndDelete(req.params.id);
     res.json({ success: true });
@@ -97,46 +91,17 @@ app.delete('/api/goods/:id', async (req, res) => {
   }
 });
 
+// (옵션) 주문 내역 저장/조회 라우트도 동일하게 여기에 놓을 수 있습니다...
 
-// 4) 주문 요청 API
+// 4) 정적 파일 서빙 (반드시 API 라우트 다음에)
+app.use(express.static(path.join(__dirname, 'public')));
 
-// 기존에 console.log만 하시던 부분을, 이제 DB에도 저장합니다.
-app.post('/api/order', async (req, res) => {
-  try {
-    const { orderId, orderName, customerName, customerPhone, customerAddress, quantity } = req.body;
-
-    console.log('📦 새 주문 요청 도착:');
-    console.log({ orderId, orderName, quantity, customerName, customerPhone, customerAddress });
-
-    const order = new Order({
-      orderId,
-      orderName,
-      quantity,
-      customerName,
-      customerPhone,
-      customerAddress
-    });
-    await order.save();
-
-    res.json({ message: '주문이 접수되었습니다. 감사합니다!', order });
-  } catch (err) {
-    console.error('주문 처리 오류:', err);
-    res.status(500).json({ error: '주문 처리 중 오류가 발생했습니다.' });
-  }
+// 5) SPA 라우팅 대응: 정의되지 않은 모든 GET 요청을 manage.html 로
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'manage.html'));
 });
 
-// (Optional) 주문 내역 조회 API
-app.get('/api/orders', async (req, res) => {
-  try {
-    const orders = await Order.find().sort({ createdAt: -1 });
-    res.json(orders);
-  } catch (err) {
-    res.status(500).json({ error: '주문 목록 조회 중 오류가 발생했습니다.' });
-  }
-});
-
-
-// 5) 서버 실행
+// 6) 서버 시작
 app.listen(PORT, () => {
   console.log(`✅ 서버 실행 중: http://localhost:${PORT}`);
 });

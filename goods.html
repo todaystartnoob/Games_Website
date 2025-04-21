@@ -243,7 +243,7 @@
       let goods;
 
       try {
-        const res = await fetch('/api/goods');
+        const res = await fetch('https://api.dimigo.games/api/goods');
         goods     = await res.json();
       } catch (err) {
         wrapper.innerHTML = '<p>상품을 불러오는 중 오류가 발생했습니다.</p>';
