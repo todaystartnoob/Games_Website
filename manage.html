@@ -156,10 +156,10 @@
         const goods = await res.json();
         tbody.innerHTML = goods.map(g => `
           <tr data-id="${g._id}">
-            <td>\${g.name}</td>
-            <td>\${g.price.toLocaleString()}원</td>
-            <td>\${g.category||''}</td>
-            <td>\${new Date(g.createdAt).toLocaleString()}</td>
+            <td>${g.name}</td>
+            <td>${g.price.toLocaleString()}원</td>
+            <td>${g.category||''}</td>
+            <td>${new Date(g.createdAt).toLocaleString()}</td>
             <td><button class="del-btn">삭제</button></td>
           </tr>
         `).join('');

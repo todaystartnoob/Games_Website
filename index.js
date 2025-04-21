@@ -1,13 +1,16 @@
 // server.js
 require('dotenv').config();
 const express  = require('express');
+const cors     = require('cors'); 
 const mongoose = require('mongoose');
 const path     = require('path');
 const morgan   = require('morgan');
 
 const app      = express();
-const PORT     = process.env.PORT || 3000;
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/games';
+const PORT     = 3000;
+const MONGO_URI = 'mongodb+srv://admin_for_games:KDMHS_games_is_best@dimirun.jc4jxxe.mongodb.net/';
+
+app.use(cors());
 
 // 1) MongoDB 연결
 mongoose.connect(MONGO_URI, {
@@ -18,8 +21,8 @@ mongoose.connect(MONGO_URI, {
 .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // 2) 공통 미들웨어
-app.use(morgan('dev'));       // 요청 로깅
-app.use(express.json());      // JSON body 파싱
+app.use(morgan('dev'));       
+app.use(express.json());      
 
 // 3) Mongoose 스키마/모델
 const goodSchema = new mongoose.Schema({
@@ -91,13 +94,13 @@ app.delete('/api/goods/:id', async (req, res) => {
   }
 });
 
-// (옵션) 주문 내역 저장/조회 라우트도 동일하게 여기에 놓을 수 있습니다...
+// (옵션) 주문 내역 저장/조회 라우트도 동일하게 여기에 놓을 수 있습니다...  
 
 // 4) 정적 파일 서빙 (반드시 API 라우트 다음에)
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 5) SPA 라우팅 대응: 정의되지 않은 모든 GET 요청을 manage.html 로
-app.get('*', (req, res) => {
+app.get('*all', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'manage.html'));
 });
 
