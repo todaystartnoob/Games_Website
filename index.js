@@ -29,7 +29,8 @@ const goodSchema = new mongoose.Schema({
   price:       { type: Number, required: true },
   category:    { type: String },
   imageUrl:    { type: String },
-  description: { type: String }
+  description: { type: String },
+  order:       { type: Number, default: 0 }      // ← 이 필드 추가
 }, { timestamps: true });
 const Good = mongoose.model('Good', goodSchema);
 
@@ -39,7 +40,7 @@ const Good = mongoose.model('Good', goodSchema);
 app.get('/api/goods', async (req, res) => {
   console.log('📣 GET /api/goods called');
   try {
-    const goods = await Good.find().sort({ createdAt: -1 });
+    const goods = await Good.find().sort({ order: 1, createdAt: 1 });
     res.json(goods);
   } catch (err) {
     res.status(500).json({ error: '상품 조회 중 오류가 발생했습니다.' });
@@ -81,6 +82,29 @@ app.put('/api/goods/:id', async (req, res) => {
     res.status(400).json({ error: '상품 수정에 실패했습니다.' });
   }
 });
+
+app.post('/api/goods/reorder', async (req, res) => {
+    try {
+      const { order: newOrder } = req.body;
+      if (!Array.isArray(newOrder)) {
+        return res.status(400).json({ error: 'order 배열이 필요합니다.' });
+      }
+  
+      const ops = newOrder.map((id, idx) => ({
+        updateOne: {
+          filter: { _id: id },
+          update: { $set: { order: idx } }
+        }
+      }));
+      const result = await Good.bulkWrite(ops);
+      console.log('📝 Reorder bulkWrite result:', result);
+  
+      res.json({ success: true });
+    } catch (err) {
+      console.error('Reorder error:', err);
+      res.status(500).json({ error: '순서 저장 중 오류가 발생했습니다.' });
+    }
+  });  
 
 // 상품 삭제
 app.delete('/api/goods/:id', async (req, res) => {
