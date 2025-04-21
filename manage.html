@@ -263,7 +263,9 @@
     </div>
   </nav>
 
-  <div class="content">
+  <div class="temporary" style="display:block; width:100vw; height:100vh"></div>
+
+  <div class="content" style="display: none;">
     <h1>굿즈 관리</h1>
     <form id="add-form" autocomplete="off">
       <input type="text" name="name" placeholder="상품명" required />
@@ -379,6 +381,8 @@
   
         if (res.ok) {
           document.querySelector('.Security').remove();
+          document.querySelector('.temporary').remove();
+          document.querySelector('.content').style.display = 'block';
         } else {
           alert('비밀번호가 올바르지 않습니다.');
           pwInput.value = '';
