@@ -175,7 +175,7 @@
           const tr = btn.closest('tr');
           const id = tr.dataset.id;
           if (!confirm('정말 삭제하시겠습니까?')) return;
-          await fetch(`/api/goods/${id}`, { method: 'DELETE' });
+          await fetch(`https://api.dimigo.games/api/goods/${id}`, { method: 'DELETE' });
           fetchGoods();
         };
       });
