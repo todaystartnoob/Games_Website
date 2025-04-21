@@ -152,7 +152,7 @@
     async function fetchGoods() {
       const tbody = document.getElementById('goods-body');
       try {
-        const res = await fetch('/api/goods');
+        const res = await fetch('https://api.dimigo.games/api/goods');
         const goods = await res.json();
         tbody.innerHTML = goods.map(g => `
           <tr data-id="${g._id}">
