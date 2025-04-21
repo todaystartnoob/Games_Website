@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="GAMES 굿즈 관리 페이지"/>
+  <link rel="icon" href="./IMAGES/게임즈 창업동아리 로고.png"/>
+  <title>굿즈 관리 | GAMES</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet"/>
+  <style>
+    body { font-family: 'Pretendard', sans-serif; padding-top: 70px; }
+    .navbar { background-color: rgba(255,255,255,0.3)!important; position: fixed; width: 100%; top: 0; z-index: 1000; backdrop-filter: blur(12px); padding:10px 0; }
+    .navbar .nav-item p { cursor:pointer; font-size:1.2rem; margin:0; padding:15px 30px; color:rgba(0,0,0,0.6); transition:color .3s; }
+    .navbar .nav-item p.active { color:#26B5D7; font-weight:bold; transform: scale(1.2); }
+    .navbar .nav-item p:not(.active):hover { color:#212121; }
+    .navbar img { max-width:5vw; min-width:50px; transition:.3s; }
+    .content { width:90vw; margin:2rem auto; }
+    form#add-form { display:grid; grid-template-columns: 1fr 1fr 1fr 1fr auto; gap:.5rem; margin-bottom:2rem; }
+    form#add-form input, form#add-form button { padding:.6rem; font-size:1rem; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { border:1px solid #ddd; padding:.5rem; }
+    button.del-btn { background:#e74c3c; color:#fff; border:none; padding:.3rem .6rem; border-radius:4px; cursor:pointer; }
+    button.del-btn:hover { background:#c0392b; }
+    .footer {
+            background-color: #333;
+            color: rgba(255,255,255,0.4);
+            padding: 20px 0;
+            display: flex;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .footerContainer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 80%;
+            flex-wrap: wrap;
+        }
+        .footLogoContainer {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .footLogo {
+            width: 50px;
+            opacity: 0.4;
+        }
+        .footText {
+            display: flex;
+            flex-direction: column;
+        }
+        .footText p {
+            margin: 0;
+            font-size: 1rem;
+        }
+        .footQRContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .QRs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+        .QR {
+            width: 50px;
+        }
+        @media (max-width: 768px) {
+            .footerContainer {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            .footLogoContainer {
+                flex-direction: column;
+            }
+        }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <img src="./IMAGES/게임즈 로고_게임즈 창업동아리 회색.svg" alt="Logo" style="cursor:pointer;" onclick="navigateTo('index.html')"/>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><p onclick="navigateTo('/')">홈</p></li>
+          <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
+          <li class="nav-item"><p onclick="navigateTo('achievements.html')">실적</p></li>
+          <li class="nav-item"><p onclick="navigateTo('goods.html')">굿즈</p></li>
+          <li class="nav-item"><p class="active">관리</p></li>
+          <li class="nav-item"><p onclick="navigateTo('Q&A.html')">질문</p></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content">
+    <h1>굿즈 관리</h1>
+    <form id="add-form">
+      <input type="text" name="name" placeholder="상품명" required />
+      <input type="number" name="price" placeholder="가격" required />
+      <input type="text" name="category" placeholder="카테고리" />
+      <input type="url" name="imageUrl" placeholder="이미지 URL" />
+      <input type="text" name="description" placeholder="설명" />
+      <button type="submit" class="btn btn-primary">추가</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>이름</th><th>가격</th><th>카테고리</th><th>등록일</th><th>액션</th>
+        </tr>
+      </thead>
+      <tbody id="goods-body"></tbody>
+    </table>
+  </div>
+
+  <footer class="footer">
+    <div class="footerContainer">
+      <div class="footLogoContainer">
+        <img class="footLogo" src="./IMAGES/게임즈 창업동아리 로고.png" alt="Logo" />
+        <div class="footText">
+          <p>상상을 실현하는 예술가들</p>
+          <p style="font-weight:bold;">GAMES</p>
+        </div>
+      </div>
+      <div class="footQRContainer">
+        <div class="QRs">
+          <img class="QR" id="notionQR1" src="./IMAGES/게임즈 일동 노션.png" alt="Notion" style="cursor:pointer;"/>
+          <img class="QR" id="notionQR2" src="./IMAGES/게임즈 창동 노션 qr.png" alt="Notion QR" style="cursor:pointer;"/>
+          <img class="QR" id="instaQR" src="./IMAGES/게임즈 창동 인스타.png" alt="Instagram" style="cursor:pointer;"/>
+          <img class="QR" id="youtubeQR" src="./IMAGES/게임즈 유튜브 qr.png" alt="YouTube" style="cursor:pointer;"/>
+        </div>
+        <p>&copy; GAMES All Rights Reserved</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function navigateTo(page) { location.href = page; }
+
+    async function fetchGoods() {
+      const tbody = document.getElementById('goods-body');
+      try {
+        const res = await fetch('/api/goods');
+        const goods = await res.json();
+        tbody.innerHTML = goods.map(g => `
+          <tr data-id="${g._id}">
+            <td>\${g.name}</td>
+            <td>\${g.price.toLocaleString()}원</td>
+            <td>\${g.category||''}</td>
+            <td>\${new Date(g.createdAt).toLocaleString()}</td>
+            <td><button class="del-btn">삭제</button></td>
+          </tr>
+        `).join('');
+        attachDeleteHandlers();
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="5">상품 로드 실패</td></tr>';
+      }
+    }
+
+    function attachDeleteHandlers() {
+      document.querySelectorAll('.del-btn').forEach(btn => {
+        btn.onclick = async () => {
+          const tr = btn.closest('tr');
+          const id = tr.dataset.id;
+          if (!confirm('정말 삭제하시겠습니까?')) return;
+          await fetch(`/api/goods/${id}`, { method: 'DELETE' });
+          fetchGoods();
+        };
+      });
+    }
+
+    document.getElementById('add-form').addEventListener('submit', async e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = Object.fromEntries(new FormData(form).entries());
+      data.price = parseInt(data.price, 10);
+      await fetch('/api/goods', {
+        method: 'POST',
+        headers: { 'Content-Type':'application/json' },
+        body: JSON.stringify(data)
+      });
+      form.reset();
+      fetchGoods();
+    });
+
+    // QR 클릭 이벤트
+    document.getElementById('notionQR1').onclick = () => window.open('https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec', '_blank');
+    document.getElementById('notionQR2').onclick = () => window.open('https://www.notion.so/2024-GAMES-1830f95ca092806e994dc4fb85ead9fa', '_blank');
+    document.getElementById('instaQR').onclick    = () => window.open('https://www.instagram.com/dimi_games_/', '_blank');
+    document.getElementById('youtubeQR').onclick  = () => window.open('https://www.youtube.com/channel/UCziJG7wTrfKEj6tiL-of2_A', '_blank');
+
+    // 초기 로드
+    fetchGoods();
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
