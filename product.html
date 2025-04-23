@@ -504,20 +504,6 @@
     // 네비게이션 헬퍼
     function navigateTo(url){ location.href = url; }
 
-    if (!phoneEl.value.trim()) {
-      const alertEl = document.getElementById('custom-alert-tell');
-      alertEl.style.display = 'block';
-      alertEl.textContent = '전화번호 입력란을 작성해주세요.';
-      setTimeout(() => alertEl.style.display = 'none', 2500);
-    }
-    if (!phoneEl.value.trim()) {
-      const alertEl = document.getElementById('custom-alert-address');
-      alertEl.style.display = 'block';
-      alertEl.textContent = '상세주소 입력란을 작성해주세요.';
-      setTimeout(() => alertEl.style.display = 'none', 2500);
-    }
-
-
     // QR 클릭
     document.getElementById('notion1').onclick = ()=>window.open('https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec','_blank');
     document.getElementById('notion2').onclick = ()=>window.open('https://www.notion.so/2024-GAMES-1830f95ca092806e994dc4fb85ead9fa','_blank');
@@ -580,31 +566,51 @@
       }
     }
 
-    // 주문 핸들러
-    form.addEventListener('submit', async e=>{
+        // 주문 핸들러
+        form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // 유효성 검사
+      if (!phoneEl.value.trim()) {
+        alertPhone.style.display = 'block';
+        setTimeout(() => alertPhone.style.display = 'none', 2500);
+        return;
+      }
+
+      if (!addrEl.value.trim()) {
+        alertAddr.style.display = 'block';
+        setTimeout(() => alertAddr.style.display = 'none', 2500);
+        return;
+      }
+
       const quantity = +qtyInput.value;
       const body = {
-        orderId: 'order-'+Date.now(),
+        orderId: 'order-' + Date.now(),
         orderName: titleEl.textContent,
         quantity,
         customerPhone: phoneEl.value,
         customerAddress: addrEl.value
       };
-      try{
-        const r = await fetch('https://api.dimigo.games/api/order',{
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body:JSON.stringify(body)
+
+      try {
+        const r = await fetch('https://api.dimigo.games/api/order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
         });
         const j = await r.json();
-        alert(j.message||'주문이 완료되었습니다!');
-        phoneEl.value=''; addrEl.value=''; qtyInput.value=1; updateTotal(1);
-      }catch{
+        alert(j.message || '주문이 완료되었습니다!');
+
+        phoneEl.value = '';
+        addrEl.value = '';
+        qtyInput.value = 1;
+        updateTotal(1);
+      } catch {
         alert('주문 요청에 실패했습니다.');
       }
     });
 
+    // 초기 로딩 실행
     load();
   </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
