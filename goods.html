@@ -209,7 +209,7 @@
   <footer class="footer">
     <div class="footerContainer">
       <div class="footLogoContainer">
-        <img class="footLogo" src="./IMAGES/게임즈 창업동아리 로고.png" alt="Logo"/>
+        <img class="footLogo" src="./IMAGES/게임즈 창업동아리 로고.png" alt="Logo" style="cursor:pointer;"/>
         <div class="footText">
           <p>상상을 실현하는 예술가들</p>
           <p style="font-weight:bold;">GAMES</p>
@@ -282,6 +282,48 @@
         </div>
       `).join('');
     });
+
+    // Footer 로고 클릭 시 관리자 페이지 접근
+    async function loadAdminPage() {
+      const token = localStorage.getItem('games_token');
+      if (!token) {
+        google.accounts.id.initialize({
+          client_id: '698857073293-j36cvnibhrot1lle9u566ut427r59kv8.apps.googleusercontent.com',
+          callback: handleCredentialResponse
+        });
+        google.accounts.id.prompt();
+        return;
+      }
+
+      const res = await fetch('https://api.dimigo.games/secure/manage.html', {
+        headers: { 'Authorization': `Bearer ${token}` },
+        mode: 'cors', credentials: 'include'
+      });
+      if (!res.ok) {
+        alert('관리자 권한이 없습니다.');
+        return;
+      }
+      const html = await res.text();
+      document.open(); document.write(html); document.close();
+    }
+
+    function handleCredentialResponse(response) {
+      fetch('https://api.dimigo.games/auth/google', {
+        method: 'POST', headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({credential: response.credential})
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.success && data.token) {
+          localStorage.setItem('games_token', data.token);
+          loadAdminPage();
+        } else {
+          alert('관리자 권한이 없습니다.');
+        }
+      });
+    }
+
+    document.querySelector('.footLogo').addEventListener('click', loadAdminPage);
 
     // Footer QR 클릭 이벤트
     document.getElementById('notionQR1').onclick = () => window.open('https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec','_blank');
