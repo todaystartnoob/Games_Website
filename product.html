@@ -375,6 +375,24 @@
                 flex-direction: column;
             }
         }
+        #custom-alert-tell {
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
+
+        #custom-alert-address {
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
+
     </style>
   </style>
 </head>
@@ -438,14 +456,14 @@
         <form id="order-form" autocomplete="off">
           <div class="inputs">
             <input type="tel"    id="phone"    placeholder="전화번호" required/>
-            <input type="text"   id="address"  placeholder="주소지"   required/>
+            <input type="text"   id="address"  placeholder="상세주소"   required/>
           </div>
           <div class="order-section">
             <button type="submit" class="order-btn">구매하기</button>
             <div class="shipping-info">
               배송안내<br>
               기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
-              30,000₩ 이상 무료 배송
+              30,000₩ 이상 무료 배송<br>
             </div>
           </div>
         </form>
@@ -474,9 +492,31 @@
     </div>
   </footer>
 
+  <div id="custom-alert-tell" role="alert">
+    전화번호 입력란을 작성해주세요.
+  </div>
+  <div id="custom-alert-address" role="alert">
+    상세주소 입력란을 작성해주세요.
+  </div>
   <script>
     // 네비게이션 헬퍼
     function navigateTo(url){ location.href = url; }
+
+    if (!phoneEl.value.trim()) {
+      const alertEl = document.getElementById('custom-alert-tell');
+      alertEl.style.display = 'block';
+      alertEl.textContent = '전화번호 입력란을 작성해주세요.';
+      setTimeout(() => alertEl.style.display = 'none', 2500);
+      return;
+    }
+    if (!phoneEl.value.trim()) {
+      const alertEl = document.getElementById('custom-alert-address');
+      alertEl.style.display = 'block';
+      alertEl.textContent = '상세주소 입력란을 작성해주세요.';
+      setTimeout(() => alertEl.style.display = 'none', 2500);
+      return;
+    }
+
 
     // QR 클릭
     document.getElementById('notion1').onclick = ()=>window.open('https://www.notion.so/GAMES-1830f95ca09280499357d0b193ca13ec','_blank');
