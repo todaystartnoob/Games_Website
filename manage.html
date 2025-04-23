@@ -198,22 +198,24 @@
     </div>
   </nav>
 
-  <div id="g_id_onload"
-    data-client_id="698857073293-j36cvnibhrot1lle9u566ut427r59kv8.apps.googleusercontent.com"
-    data-callback="handleCredentialResponse"
-    data-auto_prompt="false">
+  <div id="login-prompt">
+    <div id="g_id_onload"
+      data-client_id="698857073293-j36cvnibhrot1lle9u566ut427r59kv8.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="false">
+    </div>
+  
+    <div class="g_id_signin"
+      data-type="standard"
+      data-size="large"
+      data-theme="outline"
+      data-text="sign_in_with"
+      data-shape="rectangular"
+      data-logo_alignment="left">
+    </div>
   </div>
 
-  <div class="g_id_signin"
-    data-type="standard"
-    data-size="large"
-    data-theme="outline"
-    data-text="sign_in_with"
-    data-shape="rectangular"
-    data-logo_alignment="left">
-  </div>
-
-  <div class="content">
+  <div class="content" id="admin-content" style="display:none;">
     <h1>굿즈 관리</h1>
     <form id="add-form" autocomplete="off">
       <input type="text" name="name" placeholder="상품명" required />
@@ -386,26 +388,75 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
-      function handleCredentialResponse(response) {
-        fetch("/auth/google", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ credential: response.credential })
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success) {
-            console.log("✅ 로그인 성공:", data.email);
-            // 예: 로그인 후 메인 페이지 이동
-            window.location.href = "/dashboard";
+      async function handleCredentialResponse(response) {
+        try {
+          const res = await fetch("/auth/google", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ credential: response.credential })
+          });
+    
+          const data = await res.json();
+    
+          if (data.success && data.token) {
+            console.log("✅ 관리자 인증 완료:", data.email);
+            // JWT 저장
+            localStorage.setItem("games_token", data.token);
+    
+            // manage.html 재요청 (토큰 인증 헤더 포함)
+            const pageRes = await fetch("/manage.html", {
+              headers: { Authorization: `Bearer ${data.token}` }
+            });
+    
+            if (pageRes.ok) {
+              // 관리 UI 열기
+              document.getElementById("admin-content").style.display = "block";
+              document.getElementById("login-prompt").style.display = "none";
+              fetchGoods();
+            } else {
+              alert("⚠️ 접근 권한 없음");
+              window.location.href = "/";
+            }
           } else {
-            alert("❌ 허용되지 않은 사용자입니다.");
+            alert("❌ 관리자 권한이 없습니다.");
+            window.location.href = "/";
           }
-        })
-        .catch(err => {
+        } catch (err) {
           console.error("로그인 오류:", err);
-        });
+          window.location.href = "/";
+        }
       }
+    
+      // 페이지 로딩 시 토큰 자동 체크
+      window.onload = async () => {
+        const token = localStorage.getItem("games_token");
+    
+        if (!token) {
+          document.getElementById("admin-content").style.display = "none";
+          document.getElementById("login-prompt").style.display = "block";
+          return;
+        }
+    
+        try {
+          const res = await fetch("/auth/check", {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+    
+          const data = await res.json();
+    
+          if (res.ok && data.success) {
+            document.getElementById("admin-content").style.display = "block";
+            document.getElementById("login-prompt").style.display = "none";
+            fetchGoods();
+          } else {
+            localStorage.removeItem("games_token");
+            window.location.href = "/";
+          }
+        } catch {
+          localStorage.removeItem("games_token");
+          window.location.href = "/";
+        }
+      };
     </script>
     
 
