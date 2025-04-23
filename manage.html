@@ -372,28 +372,24 @@
 
     <script>
     window.onload = () => {
-        google.accounts.id.initialize({
-        client_id: "698857073293-j36cvnibhrot1lle9u566ut427r59kv8.apps.googleusercontent.com", 
-        callback: async (response) => {
-            const res = await fetch("https://api.dimigo.games/auth/google", {
+      google.accounts.id.initialize({
+        client_id: "YOUR_CLIENT_ID",
+        callback: (response) => {
+          fetch("/auth/google", {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ credential: response.credential })
-            });
-
-            const data = await res.json();
+          })
+          .then(res => res.json())
+          .then(data => {
             if (data.success) {
-            console.log("✅ 로그인 성공:", data.email);
-            // 여기에 관리 페이지 내용 로드
+              console.log("✅ 로그인 성공:", data.email);
             } else {
-            alert("허용되지 않은 사용자입니다.");
-            window.location.href = "/"; // 혹은 에러 페이지로 리디렉션
+              alert("❌ 허용되지 않은 사용자입니다.");
             }
+          });
         }
-        });
-
+      });
 
         google.accounts.id.prompt(); 
     }
