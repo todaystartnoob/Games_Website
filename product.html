@@ -566,8 +566,11 @@
       }
     }
 
+    const alertPhone = document.getElementById('custom-alert-tell');
+    const alertAddr  = document.getElementById('custom-alert-address');
+
         // 주문 핸들러
-        form.addEventListener('submit', async (e) => {
+      form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // 유효성 검사
