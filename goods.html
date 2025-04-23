@@ -227,6 +227,7 @@
     </div>
   </footer>
 
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script>
     // 페이지 이동
     function navigateTo(page) {
@@ -282,7 +283,7 @@
         </div>
       `).join('');
     });
-
+    
     // Footer 로고 클릭 시 관리자 페이지 접근
     async function loadAdminPage() {
       const token = localStorage.getItem('games_token');
