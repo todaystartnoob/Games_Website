@@ -198,6 +198,21 @@
     </div>
   </nav>
 
+  <div id="g_id_onload"
+    data-client_id="698857073293-j36cvnibhrot1lle9u566ut427r59kv8.apps.googleusercontent.com"
+    data-callback="handleCredentialResponse"
+    data-auto_prompt="false">
+  </div>
+
+  <div class="g_id_signin"
+    data-type="standard"
+    data-size="large"
+    data-theme="outline"
+    data-text="sign_in_with"
+    data-shape="rectangular"
+    data-logo_alignment="left">
+  </div>
+
   <div class="content">
     <h1>굿즈 관리</h1>
     <form id="add-form" autocomplete="off">
@@ -371,29 +386,28 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
-    window.onload = () => {
-      google.accounts.id.initialize({
-        client_id: "YOUR_CLIENT_ID",
-        callback: (response) => {
-          fetch("/auth/google", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ credential: response.credential })
-          })
-          .then(res => res.json())
-          .then(data => {
-            if (data.success) {
-              console.log("✅ 로그인 성공:", data.email);
-            } else {
-              alert("❌ 허용되지 않은 사용자입니다.");
-            }
-          });
-        }
-      });
-
-        google.accounts.id.prompt(); 
-    }
+      function handleCredentialResponse(response) {
+        fetch("/auth/google", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ credential: response.credential })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if (data.success) {
+            console.log("✅ 로그인 성공:", data.email);
+            // 예: 로그인 후 메인 페이지 이동
+            window.location.href = "/dashboard";
+          } else {
+            alert("❌ 허용되지 않은 사용자입니다.");
+          }
+        })
+        .catch(err => {
+          console.error("로그인 오류:", err);
+        });
+      }
     </script>
+    
 
   <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
