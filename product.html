@@ -376,6 +376,7 @@
             }
         }
         #custom-alert-tell {
+          display:none;
           z-index: 2000;
           max-width: 90%;
           width: 400px;
@@ -385,6 +386,7 @@
         }
 
         #custom-alert-address {
+          display:none;
           z-index: 2000;
           max-width: 90%;
           width: 400px;
@@ -492,10 +494,10 @@
     </div>
   </footer>
 
-  <div id="custom-alert-tell" role="alert">
+  <div id="custom-alert-tell" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
     전화번호 입력란을 작성해주세요.
   </div>
-  <div id="custom-alert-address" role="alert">
+  <div id="custom-alert-address" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
     상세주소 입력란을 작성해주세요.
   </div>
   <script>
