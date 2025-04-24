@@ -229,7 +229,7 @@
         outline: none;
         }
         .inputs input:focus {
-        border-color: #1474FF;
+        border-color: #29C0E8;
         }
 
         .order-section {
@@ -273,12 +273,35 @@
         }
 
         /* ─── 배송 안내 ───────────────────────────────────────────── */
+        .infos{
+          display: flex;
+          justify-content: space-between;
+        }
         .shipping-info {
         font-size: 0.9rem;
         margin-top: 5%;
         color: #757575;
         line-height: 1.4;
         }
+        .adress-info{
+          font-size: 0.9rem;
+          margin-top: 5%;
+          color: #757575;
+          line-height: 1.4;
+        }
+        @media (max-width: 768px) {
+        .infos {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .shipping-info,
+        .adress-info {
+          width: 100%;
+          font-size: 0.95rem;
+          line-height: 1.6;
+        }
+      }
 
         /* ─── 반응형 ───────────────────────────────────────────────── */
         @media (max-width: 992px) {
@@ -504,10 +527,17 @@
             <button type="submit" class="save-btn">장바구니</button>
             <button type="submit" class="order-btn">구매하기</button>
           </div>
-          <div class="shipping-info">
-            배송안내<br>
-            기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
-            30,000₩ 이상 무료 배송<br>
+          <div class="infos">
+            <div class="shipping-info">
+              배송안내<br>
+              기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
+              30,000₩ 이상 무료 배송<br>
+            </div>
+            <div class="adress-info">
+              주소 입력 안내<br>
+              상세 주소를 입력해 주세요.<br>
+              예: 경기도 안산시 단원구 와동 디지털 미디어 아파트 101동 1101호<br>
+            </div>
           </div>
         </form>
       </div>
