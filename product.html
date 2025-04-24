@@ -269,6 +269,7 @@
             transition: background-color 0.2s;
         }
         .save-btn:hover {
+          outline: 1px solid #29C0E8;
           background-color: #ecfcff;
         }
 
@@ -422,7 +423,19 @@
           border-radius: 10px;
           font-size: 1rem;
         }
-
+        #custom-alert-tell-type{
+          display:none;
+          background-color: #fff;
+          border-color: #26B5D7;
+          color: black;
+          font-weight: 700;
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
     </style>
   </style>
 </head>
@@ -514,10 +527,10 @@
       </div>
       <div class="footQRContainer">
         <div class="QRs">
-          <img class="QR" id="notion1" src="./IMAGES/게임즈 일동 노션.png" alt="Notion"/>
-          <img class="QR" id="notion2" src="./IMAGES/게임즈 창동 노션 qr.png" alt="Notion"/>
-          <img class="QR" id="insta"  src="./IMAGES/게임즈 창동 인스타.png" alt="Instagram"/>
-          <img class="QR" id="youtube"src="./IMAGES/게임즈 유튜브 qr.png" alt="YouTube"/>
+          <img class="QR" id="notion1" src="./IMAGES/게임즈 일동 노션.png" alt="Notion" style="cursor: pointer;"/>
+          <img class="QR" id="notion2" src="./IMAGES/게임즈 창동 노션 qr.png" alt="Notion" style="cursor: pointer;"/>
+          <img class="QR" id="insta"  src="./IMAGES/게임즈 창동 인스타.png" alt="Instagram" style="cursor: pointer;"/>
+          <img class="QR" id="youtube"src="./IMAGES/게임즈 유튜브 qr.png" alt="YouTube" style="cursor: pointer;"/>
         </div>
       </div>
     </div>
@@ -525,6 +538,9 @@
 
   <div id="custom-alert-tell" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
     전화번호 입력란을 작성해주세요.
+  </div>
+  <div id="custom-alert-tell-type" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+    전화번호는 010******** 형식으로 입력해주세요.
   </div>
   <div id="custom-alert-address" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
     상세주소 입력란을 작성해주세요.
@@ -596,6 +612,7 @@
     }
 
     const alertPhone = document.getElementById('custom-alert-tell');
+    const typeAlertPhone = document.getElementById('custom-alert-tell-type');
     const alertAddr  = document.getElementById('custom-alert-address');
 
         // 주문 핸들러
@@ -606,6 +623,14 @@
       if (!phoneEl.value.trim()) {
         alertPhone.style.display = 'block';
         setTimeout(() => alertPhone.style.display = 'none', 2500);
+        return;
+      }
+
+      // 2) 형식 검사: 010 + 숫자 8자리 (총 11자리)
+      const phone = phoneEl.value.trim();
+      if (!/^010\d{8}$/.test(phone)) {
+        typeAlertPhone.style.display = 'block';
+        setTimeout(() => typeAlertPhone.style.display = 'none', 2500);
         return;
       }
 
