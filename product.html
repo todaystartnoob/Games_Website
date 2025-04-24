@@ -255,10 +255,27 @@
         .order-btn:hover {
         background-color: #1FAAC2;
         }
+        .save-btn{
+          background-color: #fff;
+            color: #29C0E8;
+            outline: 1px solid #29C0E8;
+            border: none;
+            border-radius: 30px;
+            padding: 0.8rem 0;
+            width: 40%;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        .order-btn:hover {
+        background-color: #ecfcff;
+        }
 
         /* ─── 배송 안내 ───────────────────────────────────────────── */
         .shipping-info {
         font-size: 0.9rem;
+        margin-top: 5%;
         color: #757575;
         line-height: 1.4;
         }
@@ -469,12 +486,13 @@
             <input type="text"   id="address"  placeholder="상세주소"/>
           </div>
           <div class="order-section">
+            <button type="submit" class="save-btn">장바구니</button>
             <button type="submit" class="order-btn">구매하기</button>
-            <div class="shipping-info">
-              배송안내<br>
-              기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
-              30,000₩ 이상 무료 배송<br>
-            </div>
+          </div>
+          <div class="shipping-info">
+            배송안내<br>
+            기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
+            30,000₩ 이상 무료 배송<br>
           </div>
         </form>
       </div>
