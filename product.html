@@ -623,7 +623,7 @@
         customerPhone: phoneEl.value,
         customerAddress: addrEl.value
       };
-
+      
       try {
         const r = await fetch('https://api.dimigo.games/api/order', {
           method: 'POST',
@@ -641,7 +641,7 @@
         alert('주문 요청에 실패했습니다.');
       }
     });
-
+    
     // 초기 로딩 실행
     load();
   </script>
