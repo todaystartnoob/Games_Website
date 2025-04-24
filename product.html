@@ -234,6 +234,7 @@
 
         .order-section {
             display: flex;
+            justify-content: space-between;
             align-items: flex-end; /* 버튼 기준 아래 맞춤 */
             gap: 2rem;
             margin: 4rem 0 0 0;
@@ -276,6 +277,7 @@
         .infos{
           display: flex;
           justify-content: space-between;
+          padding-top: 1%;
         }
         .shipping-info {
         font-size: 0.9rem;
@@ -288,28 +290,8 @@
           margin-top: 5%;
           color: #757575;
           line-height: 1.4;
-          padding-right: 15%;
         }
-        @media (max-width: 1600px) {
-          .adress-info {
-          padding-right:12%;
-        }
-       }
-        @media (max-width: 1500px) {
-          .adress-info {
-          padding-right:10%;
-        }
-       }
-       @media (max-width: 1400px) {
-          .adress-info {
-          padding-right:6%;
-        }
-       }
-       @media (max-width: 1300px) {
-          .adress-info {
-          padding-right:0%;
-        }
-       }
+
         @media (max-width: 768px) {
         .infos {
           flex-direction: column;
@@ -545,20 +527,22 @@
             <input type="tel"    id="phone"    placeholder="전화번호"/>
             <input type="text"   id="address"  placeholder="상세주소"/>
           </div>
-          <div class="order-section">
-            <button type="submit" class="save-btn">장바구니</button>
-            <button type="submit" class="order-btn">구매하기</button>
-          </div>
-          <div class="infos">
-            <div class="shipping-info">
-              배송안내<br>
-              기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
-              30,000₩ 이상 무료 배송<br>
+          <div style="margin-top: 15%;">
+            <div class="order-section">
+              <button type="submit" class="save-btn">장바구니</button>
+              <button type="submit" class="order-btn">구매하기</button>
             </div>
-            <div class="adress-info">
-              주소 입력 안내<br>
-              상세 주소를 입력해 주세요.<br>
-              예: 경기도 안산시 단원구 와동 디미 아파트 101동 1101호<br>
+            <div class="infos">
+              <div class="shipping-info">
+                배송안내<br>
+                기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
+                30,000₩ 이상 무료 배송<br>
+              </div>
+              <div class="adress-info">
+                주소 입력 안내<br>
+                상세 주소를 입력해 주세요.<br>
+                예: 경기도 안산시 단원구 와동 디미 아파트 101동 1101호<br>
+              </div>
             </div>
           </div>
         </form>
