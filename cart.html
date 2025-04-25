@@ -506,7 +506,6 @@
                 class="item-image"
                 style="cursor: pointer;"
                 alt="${item.name}"
-                onclick="selectProduct('${item.id}')"
               />
               <div class="item-details">
                 <div class="label">상품명</div><div class="value">${item.name}</div>
@@ -521,6 +520,11 @@
             container.appendChild(card);
           });
         
+            // — 이미지 클릭만 상품 페이지로 이동
+            const img = card.querySelector('.item-image');
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => selectProduct(item.id));
+
           totalEl.textContent = '총 합계: ' + sum.toLocaleString() + '원';
         
           // 3) 개별 삭제 버튼 핸들러
