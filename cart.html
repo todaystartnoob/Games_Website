@@ -93,11 +93,12 @@
         max-width: 1200px;
         margin: 2rem auto;
         padding: 0 1rem;
+        flex:1;
         }
         .cart-header {
-        background: #29C0E8;
+        background: #55c7e6;
         color: #fff;
-        font-size: 2rem;
+        font-size: 1.5rem;
         font-weight: bold;
         padding: 1rem 1.5rem;
         border-radius: 16px 16px 0 0;
@@ -109,6 +110,8 @@
         display: grid;
         grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
         gap: 1.5rem;
+        min-height: 400px;
+        min-width: 800px;
         }
 
         /* --- 각 카드 --- */
@@ -146,23 +149,33 @@
         text-align: right;
         }
 
-        /* 삭제 버튼 */
-        .cart-item .item-remove {
-        padding: 0.75rem 1rem;
-        text-align: right;
-        border-top: 1px solid #eee;
+        #clear-cart{
+            padding: 0.75rem 2rem;
+            border: 1px solid red;
+            background-color: transparent;
+            color: red;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
         }
-        .cart-item .item-remove button {
-        background: #fff;
-        color: #e74c3c;
-        border: 1px solid #e74c3c;
-        border-radius: 4px;
-        padding: 0.4rem 0.8rem;
-        cursor: pointer;
+        #clear-cart:hover{
+            background-color: #e0f7fc;
         }
-        .cart-item .item-remove button:hover {
-        background: #e74c3c;
-        color: #fff;
+        #checkout-btn{
+            padding: 0.75rem 2rem;
+            border: 1px solid #26B5D7;
+            background-color: #fff;
+            color: #26B5D7;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #checkout-btn:hover{
+            background-color: #1faac2;
         }
 
         /* --- 풋터: 합계 + 액션 --- */
@@ -283,8 +296,8 @@
         <div class="cart-footer">
           <div class="cart-total" id="cart-total">총 합계: 0원</div>
           <div class="cart-actions">
-            <button id="clear-cart" class="btn btn-outline-danger">비우기</button>
-            <button id="checkout-btn" class="btn btn-primary">주문하기</button>
+            <button id="clear-cart">전체 삭제</button>
+            <button id="checkout-btn">주문하기</button>
           </div>
         </div>
       </div>
@@ -391,10 +404,6 @@
           let sum = 0;
         
           if (cart.length === 0) {
-            container.innerHTML = `
-              <div class="text-center py-4 text-muted">
-                장바구니가 비어 있습니다.
-              </div>`;
             totalEl.textContent = '총 합계: 0원';
             return;
           }
