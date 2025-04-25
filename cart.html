@@ -177,6 +177,17 @@
         #checkout-btn:hover{
             background-color: #1faac2;
         }
+        .remove-btn{
+            padding: 0.75rem 2rem;
+            border: 1px solid red;
+            background-color: #fff;
+            color: red;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
 
         /* --- 풋터: 합계 + 액션 --- */
         .cart-footer {
@@ -427,7 +438,7 @@
                 <div class="label">총 합계</div><div class="value">${itemTotal.toLocaleString()}원</div>
               </div>
               <div class="item-remove">
-                <button data-id="${item.id}" class="remove-btn">삭제하기</button>
+                <button data-id="${item.id}" class="remove-btn">삭제</button>
               </div>
             `;
             container.appendChild(card);

@@ -775,6 +775,10 @@
       addToCart(item);
       alertCart.style.display = 'block';
       setTimeout(() => alertCart.style.display = 'none', 2500);
+      phoneEl.value = '';
+      addrEl.value = '';
+      qtyInput.value = 1;
+      updateTotal(1);
     });
 
     // 초기 로딩 실행
