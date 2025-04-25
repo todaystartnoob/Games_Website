@@ -285,8 +285,10 @@
             padding: 0.8rem 1rem;
         }
         .cart-items {
+            /* 2열 그리드 유지하면서 강제 최소 너비 해제 */
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 1rem;
+            min-width: auto;      /* ← 이 줄 추가 */
         }
         .cart-item {
             border-radius: 12px;
@@ -317,9 +319,10 @@
             padding: 0.6rem 0.8rem;
         }
         .cart-items {
+            /* 1열 그리드 */
             grid-template-columns: 1fr;
             gap: 0.75rem;
-            min-width: auto;
+            min-width: auto;      /* ← 이 줄 추가 */
         }
         .cart-item {
             border-radius: 8px;
