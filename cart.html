@@ -190,7 +190,9 @@
             cursor: pointer;
             transition: background-color 0.2s;
         }
-
+        .remove-btn:hover{
+            background-color: rgb(255, 203, 203);
+        }
         /* --- 풋터: 합계 + 액션 --- */
         .cart-footer {
         display: flex;
@@ -495,16 +497,15 @@
             const card = document.createElement('div');
             card.className = 'cart-item';
 
-            card.addEventListener('click', () => selectProduct(item.id));
-
             card.innerHTML = `
               <img
                 src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
                 class="item-image"
                 style="cursor: pointer;"
+                onclick="selectProduct(item.id)";
                 alt="${item.name}"
               />
-              <div class="item-details" style="cursor: pointer;">
+              <div class="item-details">
                 <div class="label">상품명</div><div class="value">${item.name}</div>
                 <div class="label">단가</div><div class="value">${item.price.toLocaleString()}원</div>
                 <div class="label">수량</div><div class="value">${item.quantity}개</div>
