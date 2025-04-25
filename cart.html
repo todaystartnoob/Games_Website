@@ -116,7 +116,7 @@
 
         /* --- 각 카드 --- */
         .cart-item {
-        border-bottom: 1px solid #29C0E8;
+        border: 1px solid #29C0E8;
         border-radius: 16px;
         overflow: hidden;
         display: flex;
@@ -147,12 +147,6 @@
         }
         .cart-item .item-details .value {
         text-align: right;
-        }
-        .wrapToBorder{
-            margin:0;
-            padding: 0;
-            border-left: 1px solid #29C0E8;
-            border-right: 1px solid #29C0E8;
         }
 
         #clear-cart{
@@ -444,16 +438,14 @@
                 class="item-image"
                 alt="${item.name}"
               />
-              <div class="wrapToBorder">
               <div class="item-details">
                 <div class="label">상품명</div><div class="value">${item.name}</div>
                 <div class="label">단가</div><div class="value">${item.price.toLocaleString()}원</div>
                 <div class="label">수량</div><div class="value">${item.quantity}개</div>
-                <div style=font-weight:bold; font-size:2rem;" class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
+                <div style=font-weight:bold;" class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
               </div>
               <div class="item-remove">
                 <button data-id="${item.id}" class="remove-btn">삭제</button>
-              </div>
               </div>
             `;
             container.appendChild(card);
