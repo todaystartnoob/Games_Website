@@ -502,14 +502,14 @@
                 src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
                 class="item-image"
                 style="cursor: pointer;"
-                onclick="selectProduct(${item.id})"
+                onclick="selectProduct('${item.id}'')"
                 alt="${item.name}"
               />
               <div class="item-details">
                 <div class="label">상품명</div><div class="value">${item.name}</div>
                 <div class="label">단가</div><div class="value">${item.price.toLocaleString()}원</div>
                 <div class="label">수량</div><div class="value">${item.quantity}개</div>
-                <div style=font-weight:bold; font-size:300px;" class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
+                <div class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
               </div>
               <div class="item-remove" style="cursor: pointer;">
                 <button data-id="${item.id}" class="remove-btn">삭제</button>
