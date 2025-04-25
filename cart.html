@@ -273,67 +273,43 @@
           border-radius: 10px;
           font-size: 1rem;
         }
-                /* === 반응형: 태블릿 이하 === */
-        @media (max-width: 992px) {
-        .content {
-            margin: 1.5rem 1rem;
-        }
-        .cart-header {
-            font-size: 1.3rem;
-            padding: 0.8rem 1rem;
-        }
+        /* == 900px 이하: 한 행에 최소 2장, 카드 크기 줄임 == */
+        @media (max-width: 900px) {
         .cart-items {
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            /* 260px 이상 갖고 1fr로 채우기 → 화면 너비 따라 2~3장이 배치됩니다 */
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 1rem;
-        }
-        .cart-item {
-            border-radius: 12px;
-        }
-        .cart-item .item-details {
-            font-size: 0.9rem;
-            row-gap: 0.4rem;
-            column-gap: 0.8rem;
-        }
-        .cart-footer {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 1rem;
-        }
-        .cart-actions button {
-            width: 100%;
-            margin-left: 0;
+            min-width: auto;  /* 강제로 고정 넓이 없앰 */
         }
         }
 
-        /* === 반응형: 모바일 이하 === */
-        @media (max-width: 576px) {
-        .content {
-            margin: 1rem 0.5rem;
+        /* == 700px 이하: 카드 더 작게, 1~2장 == */
+        @media (max-width: 700px) {
+        .cart-items {
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
         }
-        .cart-header {
-            font-size: 1.15rem;
-            padding: 0.6rem 0.8rem;
+        .cart-item .item-details {
+            font-size: 0.9rem;
         }
+        }
+
+        /* == 550px 이하: 한 행에 한 장 == */
+        @media (max-width: 550px) {
         .cart-items {
             grid-template-columns: 1fr;
-            gap: 0.75rem;
-            min-width: auto;
-        }
-        .cart-item {
-            border-radius: 8px;
+            gap: 0.5rem;
         }
         .cart-item .item-image {
             aspect-ratio: 4/3;
         }
         .cart-item .item-details {
-            grid-template-columns: 1fr;
-            row-gap: 0.3rem;
             font-size: 0.85rem;
+            grid-template-columns: 1fr;
+            row-gap: 0.4rem;
         }
-        .cart-footer {
-            margin-top: 1rem;
         }
-        }
+
     </style>
 </head>
 <body>
@@ -500,15 +476,16 @@
               <img
                 src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
                 class="item-image"
+                style="cursor: pointer;"
                 alt="${item.name}"
               />
-              <div class="item-details">
+              <div class="item-details" style="cursor: pointer;">
                 <div class="label">상품명</div><div class="value">${item.name}</div>
                 <div class="label">단가</div><div class="value">${item.price.toLocaleString()}원</div>
                 <div class="label">수량</div><div class="value">${item.quantity}개</div>
                 <div style=font-weight:bold;" class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
               </div>
-              <div class="item-remove">
+              <div class="item-remove" style="cursor: pointer;">
                 <button data-id="${item.id}" class="remove-btn">삭제</button>
               </div>
             `;
