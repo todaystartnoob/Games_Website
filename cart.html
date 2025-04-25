@@ -273,6 +273,67 @@
           border-radius: 10px;
           font-size: 1rem;
         }
+                /* === 반응형: 태블릿 이하 === */
+        @media (max-width: 992px) {
+        .content {
+            margin: 1.5rem 1rem;
+        }
+        .cart-header {
+            font-size: 1.3rem;
+            padding: 0.8rem 1rem;
+        }
+        .cart-items {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+        .cart-item {
+            border-radius: 12px;
+        }
+        .cart-item .item-details {
+            font-size: 0.9rem;
+            row-gap: 0.4rem;
+            column-gap: 0.8rem;
+        }
+        .cart-footer {
+            flex-direction: column;
+            align-items: stretch;
+            gap: 1rem;
+        }
+        .cart-actions button {
+            width: 100%;
+            margin-left: 0;
+        }
+        }
+
+        /* === 반응형: 모바일 이하 === */
+        @media (max-width: 576px) {
+        .content {
+            margin: 1rem 0.5rem;
+        }
+        .cart-header {
+            font-size: 1.15rem;
+            padding: 0.6rem 0.8rem;
+        }
+        .cart-items {
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            min-width: auto;
+        }
+        .cart-item {
+            border-radius: 8px;
+        }
+        .cart-item .item-image {
+            aspect-ratio: 4/3;
+        }
+        .cart-item .item-details {
+            grid-template-columns: 1fr;
+            row-gap: 0.3rem;
+            font-size: 0.85rem;
+        }
+        .cart-footer {
+            margin-top: 1rem;
+        }
+        }
     </style>
 </head>
 <body>
@@ -432,6 +493,9 @@
         
             const card = document.createElement('div');
             card.className = 'cart-item';
+
+            card.addEventListener('click', () => selectProduct(item.id));
+
             card.innerHTML = `
               <img
                 src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
