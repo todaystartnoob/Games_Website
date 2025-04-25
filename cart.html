@@ -468,68 +468,67 @@
     </script>
     <script>
         function selectProduct(id) {
-            location.href = `product.html?id=${id}`;
+          location.href = `product.html?id=${id}`;
         }
-
-        // 1) 로컬스토리지 Cart 유틸
+      
+        // 로컬스토리지 Cart 유틸
         function getCart() {
           return JSON.parse(localStorage.getItem('guestCart') || '[]');
         }
         function saveCart(cart) {
           localStorage.setItem('guestCart', JSON.stringify(cart));
         }
-        
-        // 2) 장바구니 렌더링 (카드 그리드)
+      
+        // 장바구니 렌더링
         function renderCart() {
           const cart = getCart();
           const container = document.getElementById('cart-items');
           const totalEl   = document.getElementById('cart-total');
           container.innerHTML = '';
           let sum = 0;
-        
+      
           if (cart.length === 0) {
             container.style.minHeight = '400px';
             totalEl.textContent = '총 합계: 0원';
             return;
           }
-        
+      
           cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             sum += itemTotal;
-        
+      
+            // 카드 요소 생성
             const card = document.createElement('div');
             card.className = 'cart-item';
-
             card.innerHTML = `
               <img
-                src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
+                src="${item.imageUrl || './IMAGES/goods/test.jpg'}"
                 class="item-image"
-                style="cursor: pointer;"
                 alt="${item.name}"
               />
               <div class="item-details">
                 <div class="label">상품명</div><div class="value">${item.name}</div>
                 <div class="label">단가</div><div class="value">${item.price.toLocaleString()}원</div>
                 <div class="label">수량</div><div class="value">${item.quantity}개</div>
-                <div class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
+                <div class="label">총 합계</div><div class="value" style="font-weight:bold;">${itemTotal.toLocaleString()}원</div>
               </div>
-              <div class="item-remove" style="cursor: pointer;">
+              <div class="item-remove">
                 <button data-id="${item.id}" class="remove-btn">삭제</button>
               </div>
             `;
             container.appendChild(card);
-          });
-        
-            // — 이미지 클릭만 상품 페이지로 이동
+      
+            // — 이미지만 클릭 시 이동
             const img = card.querySelector('.item-image');
             img.style.cursor = 'pointer';
-            img.addEventListener('click', () => selectProduct(item.id));
-
-          totalEl.textContent = '총 합계: ' + sum.toLocaleString() + '원';
-        
-          // 3) 개별 삭제 버튼 핸들러
-          document.querySelectorAll('.remove-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
+            img.addEventListener('click', () => {
+              selectProduct(item.id);
+            });
+      
+            // — 삭제 버튼
+            const btn = card.querySelector('.remove-btn');
+            btn.addEventListener('click', e => {
+              e.stopPropagation();  // 이미지 이벤트 차단
               if (!confirm('정말 삭제하시겠습니까?')) return;
               let list = getCart();
               list = list.filter(i => i.id !== btn.dataset.id);
@@ -537,16 +536,18 @@
               renderCart();
             });
           });
+      
+          totalEl.textContent = '총 합계: ' + sum.toLocaleString() + '원';
         }
-        
-        // 4) 전체 비우기
+      
+        // 전체 비우기
         document.getElementById('clear-cart').addEventListener('click', () => {
           if (!confirm('장바구니를 모두 비우시겠습니까?')) return;
           localStorage.removeItem('guestCart');
           renderCart();
         });
-        
-        // 5) 주문하기 (빈 장바구니 경고)
+      
+        // 주문하기 (빈 장바구니 경고)
         const cartEmptyAlert = document.getElementById('isEmpty');
         document.getElementById('checkout-btn').addEventListener('click', () => {
           const cart = getCart();
@@ -557,10 +558,11 @@
             // 실제 주문 로직 삽입
           }
         });
-        
+      
         // 초기 렌더
         document.addEventListener('DOMContentLoaded', renderCart);
-        </script>
+      </script>
+      
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
