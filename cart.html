@@ -201,7 +201,7 @@
         margin-top: 2rem;
         }
         .cart-total {
-        font-size: 1.25rem;
+        font-size: 2rem;
         font-weight: bold;
         }
         .cart-actions button {
@@ -502,7 +502,7 @@
                 src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
                 class="item-image"
                 style="cursor: pointer;"
-                onclick="selectProduct(item.id)"
+                onclick="selectProduct(${item.id})"
                 alt="${item.name}"
               />
               <div class="item-details">
