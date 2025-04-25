@@ -465,6 +465,19 @@
           border-radius: 10px;
           font-size: 1rem;
         }
+        #cart-alert{
+          display:none;
+          background-color: #fff;
+          border-color: #26B5D7;
+          color: black;
+          font-weight: 700;
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
     </style>
   </style>
 </head>
@@ -533,7 +546,7 @@
           <div style="margin-top: 15%;">
             <div class="order-section">
               <button type="submit" class="save-btn">장바구니</button>
-              <button type="submit" class="order-btn">구매하기</button>
+              <button class="order-btn">구매하기</button>
             </div>
             <div class="infos">
               <div class="shipping-info">
@@ -582,6 +595,9 @@
   </div>
   <div id="custom-alert-address" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
     상세주소 입력란을 작성해주세요.
+  </div>
+  <div id="cart-alert" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+    장바구니에 추가했습니다.
   </div>
   <script>
     // 네비게이션 헬퍼
@@ -652,7 +668,8 @@
     const alertPhone = document.getElementById('custom-alert-tell');
     const typeAlertPhone = document.getElementById('custom-alert-tell-type');
     const alertAddr  = document.getElementById('custom-alert-address');
-
+    const alertCart  = document.getElementById('cart-alert');
+    
         // 주문 핸들러
       form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -705,6 +722,39 @@
       }
     });
     
+    // 1) 로컬스토리지 Cart 유틸
+    function getCart() {
+      return JSON.parse(localStorage.getItem('guestCart') || '[]');
+    }
+    function saveCart(cart) {
+      localStorage.setItem('guestCart', JSON.stringify(cart));
+    }
+    function addToCart(item) {
+      const cart = getCart();
+      const idx = cart.findIndex(i => i.id === item.id);
+      if (idx > -1) {
+        cart[idx].quantity += item.quantity;
+      } else {
+        cart.push(item);
+      }
+      saveCart(cart);
+    }
+
+    // 2) 장바구니 버튼 클릭 핸들러
+    document.querySelector('.save-btn').addEventListener('click', e => {
+      e.preventDefault();  // form submit 방지
+      // 아이템 정보 수집
+      const item = {
+        id: id,                       // URLSearchParams 로 가져온 id
+        name: titleEl.textContent,    // 상품명
+        price: unitPrice,             // 단가
+        quantity: +qtyInput.value     // 수량
+      };
+      addToCart(item);
+      alertCart.style.display = 'block';
+      setTimeout(() => alertCart.style.display = 'none', 2500);
+    });
+
     // 초기 로딩 실행
     load();
   </script>
