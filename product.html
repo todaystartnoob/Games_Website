@@ -770,7 +770,8 @@
         id: id,                       // URLSearchParams 로 가져온 id
         name: titleEl.textContent,    // 상품명
         price: unitPrice,             // 단가
-        quantity: +qtyInput.value     // 수량
+        quantity: +qtyInput.value,     // 수량
+        imageUrl: mainImg.src           // 이미지 URL
       };
       addToCart(item);
       alertCart.style.display = 'block';
