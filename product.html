@@ -743,6 +743,28 @@
     // 2) 장바구니 버튼 클릭 핸들러
     document.querySelector('.save-btn').addEventListener('click', e => {
       e.preventDefault();  // form submit 방지
+
+      // 유효성 검사
+      if (!phoneEl.value.trim()) {
+        alertPhone.style.display = 'block';
+        setTimeout(() => alertPhone.style.display = 'none', 2500);
+        return;
+      }
+
+      // 2) 형식 검사: 010 + 숫자 8자리 (총 11자리)
+      const phone = phoneEl.value.trim();
+      if (!/^010\d{8}$/.test(phone)) {
+        typeAlertPhone.style.display = 'block';
+        setTimeout(() => typeAlertPhone.style.display = 'none', 2500);
+        return;
+      }
+
+      if (!addrEl.value.trim()) {
+        alertAddr.style.display = 'block';
+        setTimeout(() => alertAddr.style.display = 'none', 2500);
+        return;
+      }
+
       // 아이템 정보 수집
       const item = {
         id: id,                       // URLSearchParams 로 가져온 id

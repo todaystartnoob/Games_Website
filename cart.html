@@ -55,7 +55,7 @@
             color: #212121;
         }
         .navbar img {
-            max-width: 5vw;
+            max-width: 6vw;
             min-width: 50px; /* 기본 최소 크기 설정 */
             height: auto;
             transition: all 0.3s ease-in-out;
@@ -207,11 +207,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><p class="active">홈</p></li>
+                    <li class="nav-item"><p  onclick="navigateTo('/')">홈</p></li>
                     <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
                     <li class="nav-item"><p onclick="navigateTo('achievements.html')">실적</p></li>
                     <li class="nav-item"><p onclick="navigateTo('goods.html')">굿즈</p></li>
                     <li class="nav-item"><p onclick="navigateTo('Q&A.html')">질문</p></li>
+                    <li class="nav-item"><p class="active">장바구니</p></li>
                 </ul>
             </div>
         </div>
