@@ -399,7 +399,7 @@
         const footerTop = footerEl.getBoundingClientRect().top;
         const overlap   = Math.max(0, window.innerHeight - footerTop);
         // 기본 bottom 20px + overlap 만큼 올려줌
-        cartEl.style.bottom = `${65 + overlap}px`;
+        cartEl.style.bottom = `${40 + overlap}px`;
       }
 
       window.addEventListener('scroll', updateCartPosition, { passive: true });
