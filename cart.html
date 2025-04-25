@@ -502,7 +502,6 @@
                 src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
                 class="item-image"
                 style="cursor: pointer;"
-                onclick="selectProduct('${item.id}'')"
                 alt="${item.name}"
               />
               <div class="item-details">
@@ -515,6 +514,7 @@
                 <button data-id="${item.id}" class="remove-btn">삭제</button>
               </div>
             `;
+            card.addEventListener('click', () => selectProduct(item.id));
             container.appendChild(card);
           });
         
