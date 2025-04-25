@@ -506,6 +506,7 @@
                 class="item-image"
                 style="cursor: pointer;"
                 alt="${item.name}"
+                onclick="selectProduct('${item.id}')"
               />
               <div class="item-details">
                 <div class="label">상품명</div><div class="value">${item.name}</div>
@@ -517,7 +518,6 @@
                 <button data-id="${item.id}" class="remove-btn">삭제</button>
               </div>
             `;
-            card.addEventListener('click', () => selectProduct(item.id));
             container.appendChild(card);
           });
         
