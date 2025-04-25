@@ -178,7 +178,9 @@
             background-color: #1faac2;
         }
         .remove-btn{
-            padding: 0.75rem 2rem;
+            padding: 0.5rem 2.3rem;
+            margin-bottom: 1rem;
+            margin-left: 1rem;
             border: 1px solid red;
             background-color: #fff;
             color: red;
@@ -435,7 +437,7 @@
                 <div class="label">상품명</div><div class="value">${item.name}</div>
                 <div class="label">단가</div><div class="value">${item.price.toLocaleString()}원</div>
                 <div class="label">수량</div><div class="value">${item.quantity}개</div>
-                <div class="label">총 합계</div><div class="value">${itemTotal.toLocaleString()}원</div>
+                <div style=font-weight:bold;" class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
               </div>
               <div class="item-remove">
                 <button data-id="${item.id}" class="remove-btn">삭제</button>
