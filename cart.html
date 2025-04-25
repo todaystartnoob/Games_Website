@@ -116,7 +116,7 @@
 
         /* --- 각 카드 --- */
         .cart-item {
-        border: 1px solid #29C0E8;
+        border: 1px solid #acacac;
         border-radius: 16px;
         overflow: hidden;
         display: flex;
@@ -129,7 +129,7 @@
         width: 100%;
         aspect-ratio: 16/9;
         object-fit: cover;
-        border-bottom: 1px solid #29C0E8;
+        border-bottom: 1px solid #acacac;
         }
 
         /* 내용 영역 */
@@ -502,7 +502,7 @@
                 src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
                 class="item-image"
                 style="cursor: pointer;"
-                onclick="selectProduct(item.id)";
+                onclick="selectProduct(item.id)"
                 alt="${item.name}"
               />
               <div class="item-details">
