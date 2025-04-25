@@ -400,6 +400,10 @@
     }
     </script>
     <script>
+        function selectProduct(id) {
+            location.href = `product.html?id=${id}`;
+        }
+
         // 1) 로컬스토리지 Cart 유틸
         function getCart() {
           return JSON.parse(localStorage.getItem('guestCart') || '[]');
@@ -408,56 +412,68 @@
           localStorage.setItem('guestCart', JSON.stringify(cart));
         }
         
-        // 2) 장바구니 렌더링 (카드 그리드)
+        // 3) 장바구니 렌더링 (카드 그리드)
         function renderCart() {
-          const cart = getCart();
-          const container = document.getElementById('cart-items');
-          const totalEl   = document.getElementById('cart-total');
-          container.innerHTML = '';
-          let sum = 0;
-        
-          if (cart.length === 0) {
+            const cart = getCart();
+            const container = document.getElementById('cart-items');
+            const totalEl   = document.getElementById('cart-total');
+            container.innerHTML = '';
+            let sum = 0;
+
+            // 비어 있을 때
+            if (cart.length === 0) {
+            container.innerHTML = `
+                <div class="empty-state">
+                장바구니가 비어 있습니다.
+                </div>
+            `;
             totalEl.textContent = '총 합계: 0원';
             return;
-          }
-        
-          cart.forEach(item => {
+            }
+
+            // 카드 생성
+            cart.forEach(item => {
             const itemTotal = item.price * item.quantity;
             sum += itemTotal;
-        
+
             const card = document.createElement('div');
             card.className = 'cart-item';
             card.innerHTML = `
-              <img
-                src="${item.imageUrl||'./IMAGES/goods/test.jpg'}"
-                class="item-image"
-                alt="${item.name}"
-              />
-              <div class="item-details">
-                <div class="label">상품명</div><div class="value">${item.name}</div>
-                <div class="label">단가</div><div class="value">${item.price.toLocaleString()}원</div>
-                <div class="label">수량</div><div class="value">${item.quantity}개</div>
-                <div style=font-weight:bold;" class="label">총 합계</div><div style=font-weight:bold;" class="value">${itemTotal.toLocaleString()}원</div>
-              </div>
-              <div class="item-remove">
-                <button data-id="${item.id}" class="remove-btn">삭제</button>
-              </div>
+                <div class="image-wrapper">
+                <img
+                    src="${item.imageUrl || './IMAGES/goods/test.jpg'}"
+                    alt="${item.name}"
+                    class="item-image"
+                    onclick="selectProduct('${item.id}')"
+                    style="cursor:pointer;"
+                />
+                </div>
+                <div class="item-details">
+                <div class="row"><span class="label">상품명</span><span class="value">${item.name}</span></div>
+                <div class="row"><span class="label">단가</span><span class="value">${item.price.toLocaleString()}원</span></div>
+                <div class="row"><span class="label">수량</span><span class="value">${item.quantity}개</span></div>
+                <div class="row total-row"><span class="label">합계</span><span class="value">${itemTotal.toLocaleString()}원</span></div>
+                </div>
+                <div class="item-remove">
+                <button class="remove-btn" data-id="${item.id}">삭제</button>
+                </div>
             `;
             container.appendChild(card);
-          });
-        
-          totalEl.textContent = '총 합계: ' + sum.toLocaleString() + '원';
-        
-          // 3) 개별 삭제 버튼 핸들러
-          document.querySelectorAll('.remove-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-              if (!confirm('정말 삭제하시겠습니까?')) return;
-              let list = getCart();
-              list = list.filter(i => i.id !== btn.dataset.id);
-              saveCart(list);
-              renderCart();
             });
-          });
+
+            // 총 합계 업데이트
+            totalEl.textContent = '총 합계: ' + sum.toLocaleString() + '원';
+
+            // 4) 개별 삭제 버튼 핸들러
+            container.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                if (!confirm('정말 삭제하시겠습니까?')) return;
+                const id = btn.dataset.id;
+                let newCart = getCart().filter(i => i.id !== id);
+                saveCart(newCart);
+                renderCart();
+            });
+            });
         }
         
         // 4) 전체 비우기
