@@ -66,37 +66,38 @@
     @media (max-width:768px){ .navbar img { max-width:9vw; min-width:70px; } }
     @media (max-width:480px){ .navbar img { max-width:12vw; min-width:90px; } }
 
+    /* 장바구니 버튼 고정 & 원형 아이콘 */
     .cart {
       position: fixed;
-      top: 80px;           /* 네비바(70px) 아래 */
-      right: 40px;
-      top:20px;        /* 우측 여백을 100px → 150px로 늘림 */
-      z-index: 1001;
-      width: auto;
+      bottom: 160px;    /* 화면 하단에서 20px 위 */
+      right: 30px;     /* 화면 우측에서 20px 안쪽 */
+      z-index: 10000;  /* 뭐든 위 */
     }
-
     #cart-button {
-      background-color: #fff;
-      color: #29C0E8;
-      border: 1px solid #29C0E8;
-      border-radius: 30px;
-      padding: 0.5rem 2rem; /* 좌우 패딩을 1rem → 2rem으로 늘려 버튼을 더 길게 */
-      font-size: 1.2rem;
-      font-weight: bold;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      border: 2px solid #29C0E8;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: background-color 0.2s, transform 0.2s;
     }
     #cart-button:hover {
-      outline: 1px solid #29C0E8;
       background-color: #ecfcff;
+      transform: scale(1.05);
+    }
+    /* SVG 크기 조정 */
+    #cart-button svg {
+      width: 24px;
+      height: 24px;
     }
 
-    @media (max-width: 1620px) {
-      .cart {
-        top: 70px;    /* 네비 바로 아래 고정 */
-        right: 5vw;   /* 화면 너비의 5% 만큼만 우측 여백 */
-      }
-    }
+/* (기존에 있던 .cart, #cart-button 관련 스타일은 지워주세요) */
+
 
     .content {
       flex: 1;
@@ -216,6 +217,9 @@
       .footLogoContainer {
         flex-direction: column;
       }
+      .cart{
+        bottom:270px;
+      }
     }
     @media (max-width:480px){
       .goods-item { width:100%; }
@@ -243,8 +247,16 @@
     </div>
   </nav>
 
+  <!-- 네비게이션 바로 아래, body 끝나기 직전에 -->
   <div class="cart">
-    <button id="cart-button">장바구니</button>
+    <button id="cart-button" aria-label="장바구니">
+      <!-- Feather Icons 쇼핑카트 SVG -->
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#29C0E8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+        <circle cx="9" cy="21" r="1"></circle>
+        <circle cx="20" cy="21" r="1"></circle>
+        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+      </svg>
+    </button>
   </div>
 
   <!-- Content -->
