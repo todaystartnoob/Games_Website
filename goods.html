@@ -217,9 +217,6 @@
       .footLogoContainer {
         flex-direction: column;
       }
-      .cart{
-        bottom:270px;
-      }
     }
     @media (max-width:480px){
       .goods-item { width:100%; }
@@ -399,7 +396,7 @@
         const footerTop = footerEl.getBoundingClientRect().top;
         const overlap   = Math.max(0, window.innerHeight - footerTop);
         // 기본 bottom 30px + overlap 만큼 올려줌
-        cartEl.style.bottom = `${30 + overlap}px`;
+        cartEl.style.bottom = `${20 + overlap}px`;
       }
 
       // 초기 한 번 실행
