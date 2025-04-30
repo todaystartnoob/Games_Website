@@ -388,24 +388,25 @@
     document.getElementById('youtubeQR').onclick  = () => window.open('https://www.youtube.com/channel/UCziJG7wTrfKEj6tiL-of2_A','_blank');
   </script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const cartEl   = document.querySelector('.cart');
-      const footerEl = document.querySelector('footer');
+  document.addEventListener('DOMContentLoaded', () => {
+    const cartEl   = document.querySelector('.cart');
+    const footerEl = document.querySelector('footer');
 
-      function updateCartPosition() {
-        const footerTop = footerEl.getBoundingClientRect().top;
-        const overlap   = Math.max(0, window.innerHeight - footerTop);
-        // 기본 bottom 30px + overlap 만큼 올려줌
-        cartEl.style.bottom = `${20 + overlap}px`;
-      }
+    function updateCartPosition() {
+      const footerTop = footerEl.getBoundingClientRect().top;
+      const overlap   = Math.max(0, window.innerHeight - footerTop);
+      cartEl.style.bottom = `${20 + overlap}px`;
+    }
 
-      // 초기 한 번 실행
-      updateCartPosition();
+    // DOMContentLoaded 직후
+    updateCartPosition();
 
-      // 스크롤 / 리사이즈 시에도 재계산
-      window.addEventListener('scroll', updateCartPosition, { passive: true });
-      window.addEventListener('resize', updateCartPosition);
-    });
+    // 100ms 뒤에 한 번 더
+    setTimeout(updateCartPosition, 100);
+
+    window.addEventListener('scroll', updateCartPosition, { passive: true });
+    window.addEventListener('resize', updateCartPosition);
+  });
   </script>
 
 
