@@ -339,7 +339,119 @@
             margin-top: 1rem;
         }
         }
+        #custom-alert-tell {
+          display:none;
+          background-color: #fff;
+          border-color: #26B5D7;
+          color: black;
+          font-weight: 700;
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
 
+        #custom-alert-address {
+          display:none;
+          background-color: #fff;
+          border-color: #26B5D7;
+          color: black;
+          font-weight: 700;
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
+        #custom-alert-tell-type{
+          display:none;
+          background-color: #fff;
+          border-color: #26B5D7;
+          color: black;
+          font-weight: 700;
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
+        #order-alert{
+          display:none;
+          background-color: #fff;
+          border-color: #26B5D7;
+          color: black;
+          font-weight: 700;
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
+        .inputs {
+        display: flex;
+        gap: 1rem;
+        }
+        .inputs input {
+        flex: 1;
+        padding: 0.6rem 0;
+        font-size: 1rem;
+        border: none;
+        border-bottom: 1px solid #CCC;
+        outline: none;
+        }
+        .inputs input:focus {
+        border-color: #29C0E8;
+        }
+
+        .order-section {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end; /* 버튼 기준 아래 맞춤 */
+            gap: 2rem;
+            margin: 4rem 0 0 0;
+        }
+
+        .infos{
+          gap: 2rem;
+          display: flex;
+          justify-content: space-around;
+          padding-top: 1%;
+          margin-bottom: 5rem;
+        }
+        .shipping-info {
+        font-size: 0.9rem;
+        margin-top: 5%;
+        color: #757575;
+        line-height: 1.4;
+        width: 40%;
+        }
+        .adress-info{
+          font-size: 0.9rem;
+          margin-top: 5%;
+          color: #757575;
+          line-height: 1.4;
+          width: 40%;
+        }
+
+        @media (max-width: 768px) {
+        .infos {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .shipping-info,
+        .adress-info {
+          width: 100%;
+          font-size: 0.95rem;
+          line-height: 1.6;
+          padding: 0;
+        }
+      }
     </style>
 </head>
 <body>
@@ -372,6 +484,27 @@
           <!-- JS로 .cart-item 추가 -->
         </div>
       
+        <form id="order-form" autocomplete="off">
+            <div class="inputs">
+              <input type="tel"    id="phone"    placeholder="전화번호"/>
+              <input type="text"   id="address"  placeholder="상세주소"/>
+            </div>
+            <div>
+              <div class="infos">
+                <div class="shipping-info">
+                  배송안내<br>
+                  기본 배달비 2,000₩ | 일반 택배 (우체국택배)<br>
+                  30,000₩ 이상 무료 배송<br>
+                </div>
+                <div class="adress-info">
+                  주소 입력 안내<br>
+                  상세 주소를 입력해 주세요.<br>
+                  예: 경기도 안산시 단원구 와동 디미 아파트 101동 1101호<br>
+                </div>
+              </div>
+            </div>
+          </form>
+
         <!-- 2) 총합계 + 버튼 -->
         <div class="cart-footer">
           <div class="cart-total" id="cart-total">총 합계: 0원</div>
@@ -406,6 +539,18 @@
 
     <div id="isEmpty" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
         장바구니가 비어있습니다.
+    </div>
+    <div id="custom-alert-tell" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+        전화번호 입력란을 작성해주세요.
+      </div>
+      <div id="custom-alert-tell-type" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+        전화번호는 010******** 형식으로 입력해주세요.
+      </div>
+      <div id="custom-alert-address" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+        상세주소 입력란을 작성해주세요.
+      </div>
+      <div id="order-alert" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+        주문이 완료되었습니다!
       </div>
 
     <script>
@@ -546,7 +691,12 @@
           localStorage.removeItem('guestCart');
           renderCart();
         });
-      
+        
+        const alertPhone = document.getElementById('custom-alert-tell');
+        const typeAlertPhone = document.getElementById('custom-alert-tell-type');
+        const alertAddr  = document.getElementById('custom-alert-address');
+        const alertOrder  = document.getElementById('order-alert');
+
         // 주문하기 (빈 장바구니 경고)
         const cartEmptyAlert = document.getElementById('isEmpty');
         document.getElementById('checkout-btn').addEventListener('click', () => {
@@ -555,7 +705,30 @@
             cartEmptyAlert.style.display = 'block';
             setTimeout(() => cartEmptyAlert.style.display = 'none', 2500);
           } else {
-            // 실제 주문 로직 삽입
+            e.preventDefault();
+
+            // 유효성 검사
+            if (!phoneEl.value.trim()) {
+            alertPhone.style.display = 'block';
+            setTimeout(() => alertPhone.style.display = 'none', 2500);
+            return;
+            }
+
+            // 2) 형식 검사: 010 + 숫자 8자리 (총 11자리)
+            const phone = phoneEl.value.trim();
+            if (!/^010\d{8}$/.test(phone)) {
+            typeAlertPhone.style.display = 'block';
+            setTimeout(() => typeAlertPhone.style.display = 'none', 2500);
+            return;
+            }
+
+            if (!addrEl.value.trim()) {
+            alertAddr.style.display = 'block';
+            setTimeout(() => alertAddr.style.display = 'none', 2500);
+            return;
+            }
+
+            
           }
         });
       

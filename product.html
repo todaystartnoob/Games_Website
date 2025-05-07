@@ -478,6 +478,19 @@
           border-radius: 10px;
           font-size: 1rem;
         }
+        #order-alert{
+          display:none;
+          background-color: #fff;
+          border-color: #26B5D7;
+          color: black;
+          font-weight: 700;
+          z-index: 2000;
+          max-width: 90%;
+          width: 400px;
+          text-align: center;
+          border-radius: 10px;
+          font-size: 1rem;
+        }
     </style>
   </style>
 </head>
@@ -599,6 +612,9 @@
   <div id="cart-alert" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
     장바구니에 추가했습니다.
   </div>
+  <div id="order-alert" class="alert alert-warning shadow-sm position-fixed top-0 start-50 translate-middle-x mt-3" role="alert">
+    주문이 완료되었습니다!
+  </div>
   <script>
     // 네비게이션 헬퍼
     function navigateTo(url){ location.href = url; }
@@ -669,6 +685,8 @@
     const typeAlertPhone = document.getElementById('custom-alert-tell-type');
     const alertAddr  = document.getElementById('custom-alert-address');
     const alertCart  = document.getElementById('cart-alert');
+    const alertOrder  = document.getElementById('order-alert');
+
     
         // 주문 핸들러
       form.addEventListener('submit', async (e) => {
@@ -711,7 +729,8 @@
           body: JSON.stringify(body)
         });
         const j = await r.json();
-        alert(j.message || '주문이 완료되었습니다!');
+        alertOrder.style.display = 'block';
+        setTimeout(() => alertOrder.style.display = 'none', 2500);
 
         phoneEl.value = '';
         addrEl.value = '';
@@ -743,27 +762,6 @@
     // 2) 장바구니 버튼 클릭 핸들러
     document.querySelector('.save-btn').addEventListener('click', e => {
       e.preventDefault();  // form submit 방지
-
-      // 유효성 검사
-      if (!phoneEl.value.trim()) {
-        alertPhone.style.display = 'block';
-        setTimeout(() => alertPhone.style.display = 'none', 2500);
-        return;
-      }
-
-      // 2) 형식 검사: 010 + 숫자 8자리 (총 11자리)
-      const phone = phoneEl.value.trim();
-      if (!/^010\d{8}$/.test(phone)) {
-        typeAlertPhone.style.display = 'block';
-        setTimeout(() => typeAlertPhone.style.display = 'none', 2500);
-        return;
-      }
-
-      if (!addrEl.value.trim()) {
-        alertAddr.style.display = 'block';
-        setTimeout(() => alertAddr.style.display = 'none', 2500);
-        return;
-      }
 
       // 아이템 정보 수집
       const item = {
