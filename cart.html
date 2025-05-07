@@ -699,36 +699,72 @@
 
         // 주문하기 (빈 장바구니 경고)
         const cartEmptyAlert = document.getElementById('isEmpty');
-        document.getElementById('checkout-btn').addEventListener('click', () => {
-          const cart = getCart();
-          if (cart.length === 0) {
+        document.getElementById('checkout-btn').addEventListener('click', async () => {
+        const cart = getCart();
+        const phoneEl = document.getElementById('phone');
+        const addrEl = document.getElementById('address');
+
+        if (cart.length === 0) {
             cartEmptyAlert.style.display = 'block';
             setTimeout(() => cartEmptyAlert.style.display = 'none', 2500);
-          } else {
+            return;
+        }
 
-            // 유효성 검사
-            if (!phoneEl.value.trim()) {
+        // 유효성 검사
+        if (!phoneEl.value.trim()) {
             alertPhone.style.display = 'block';
             setTimeout(() => alertPhone.style.display = 'none', 2500);
             return;
-            }
+        }
 
-            // 2) 형식 검사: 010 + 숫자 8자리 (총 11자리)
-            const phone = phoneEl.value.trim();
-            if (!/^010\d{8}$/.test(phone)) {
+        const phone = phoneEl.value.trim();
+        if (!/^010\d{8}$/.test(phone)) {
             typeAlertPhone.style.display = 'block';
             setTimeout(() => typeAlertPhone.style.display = 'none', 2500);
             return;
-            }
+        }
 
-            if (!addrEl.value.trim()) {
+        if (!addrEl.value.trim()) {
             alertAddr.style.display = 'block';
             setTimeout(() => alertAddr.style.display = 'none', 2500);
             return;
+        }
+
+        const address = addrEl.value.trim();
+
+        try {
+            for (const item of cart) {
+            const body = {
+                orderId: 'order-' + Date.now() + '-' + Math.random().toString(36).substr(2, 5),
+                orderName: item.name,
+                quantity: item.quantity,
+                customerPhone: phone,
+                customerAddress: address
+            };
+
+            const res = await fetch('https://api.dimigo.games/api/order', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(body)
+            });
+
+            const json = await res.json();
+            if (!res.ok) throw new Error(json.message || '주문 실패');
             }
 
-            
-          }
+            // 주문 성공 시
+            alertOrder.style.display = 'block';
+            setTimeout(() => alertOrder.style.display = 'none', 2500);
+
+            // 장바구니 비우기 + 초기화
+            localStorage.removeItem('guestCart');
+            phoneEl.value = '';
+            addrEl.value = '';
+            renderCart();
+
+        } catch (e) {
+            alert('주문 중 오류가 발생했습니다: ' + (e.message || ''));
+        }
         });
       
         // 초기 렌더
