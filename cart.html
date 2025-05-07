@@ -395,6 +395,7 @@
         .inputs {
         display: flex;
         gap: 1rem;
+        margin-top: 3rem;
         }
         .inputs input {
         flex: 1;
@@ -452,6 +453,36 @@
           padding: 0;
         }
       }
+      @media (max-width: 992px) {
+            .qty-row {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .order-section {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 1rem;
+            }
+            .product-container {
+                flex-direction: column;
+                width: 95%;
+                gap: 1.5rem;
+            }
+            .product-gallery.single,
+            .product-details {
+                flex: none;
+                width: 100%;
+            }
+            .inputs {
+                flex-direction: column;
+            }
+            .order-btn {
+                width: 100%;
+            }
+            .save-btn {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
