@@ -11,6 +11,9 @@
     <meta property="og:image" content="https://dimigo.games/IMAGES/%EA%B2%8C%EC%9E%84%EC%A6%88%20%EC%B0%BD%EC%97%85%EB%8F%99%EC%95%84%EB%A6%AC%20%EB%A1%9C%EA%B3%A0.png" />
     <meta property="og:url" content="https://dimigo.games/" />
     <meta name="google" content="notranslate">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Jersey+10&family=Kolker+Brush&family=Konkhmer+Sleokchher&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>인디게임 개발 동아리, GAMES</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
@@ -28,6 +31,7 @@
             flex-direction: column;
         }
         .navbar {
+            font-family: "Jersey 10";
             background-color: rgba(255, 255, 255, 0.3) !important;
             position: fixed;
             width: 100%;
@@ -337,17 +341,16 @@
     <!-- Top Navigation -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-            <img src="./IMAGES/게임즈 로고_게임즈 창업동아리 회색.svg" alt="Banner Icon" style="max-width: 6vw; cursor: pointer;" onclick="navigateTo('index.html')">
+            <img src="./IMAGES/게임즈 로고_게임즈 창업동아리 회색.svg" alt="navigation logo Icon" style="max-width: 6vw; cursor: pointer;">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><p onclick="navigateTo('/')">홈</p></li>
-                    <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
-                    <li class="nav-item"><p class="active">실적</p></li>
-                    <li class="nav-item"><p onclick="navigateTo('goods.html')">굿즈</p></li>
-                    <li class="nav-item"><p onclick="navigateTo('Q&A.html')">질문</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('index.html')">Home</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('games.html')">Game</p></li>
+                    <li class="nav-item"><p class="active">Award</p></li>
+                    <li class="nav-item"><p onclick="navigateTo('Q&A.html')">Q&A</p></li>
                 </ul>
             </div>
         </div>
@@ -355,27 +358,27 @@
        
     
     <div class="achievements-section">
-        <h2 style="font-weight: bold;">게임즈의 실적</h2>
+        <h2 style="font-weight: bold; font-family: 'Jersey 10'; font-size: 5rem;">Awards</h2>
         
         <div class="year-selector-wrapper">
-            <div class="year-selector" id="year-selector">
-                <button id="year-2025" onclick="selectYear(2025)" style="color:#C0C0C0">2025</button>
-                <button id="year-2024" onclick="selectYear(2024)">2024</button>
-                <button id="year-2023" onclick="selectYear(2023)" style="color:#C0C0C0">2023</button>
-                <button id="year-2022" onclick="selectYear(2022)">2022</button>
-                <button id="year-2021" onclick="selectYear(2021)" style="color:#C0C0C0">2021</button>
-                <button id="year-2020" onclick="selectYear(2020)" style="color:#C0C0C0">2020</button>
-                <button id="year-2019" onclick="selectYear(2019)">2019</button>
-                <button id="year-2018" onclick="selectYear(2018)">2018</button>
-                <button id="year-2017" onclick="selectYear(2017)">2017</button>
-                <button id="year-2016" onclick="selectYear(2016)">2016</button>
-                <button id="year-2015" onclick="selectYear(2015)">2015</button>
-                <button id="year-2014" onclick="selectYear(2014)" style="color:#C0C0C0">2014</button>
-                <button id="year-2013" onclick="selectYear(2013)" style="color:#C0C0C0">2013</button>
-                <button id="year-2012" onclick="selectYear(2012)">2012</button>
-                <button id="year-2011" onclick="selectYear(2011)" style="color:#C0C0C0">2011</button>
-                <button id="year-2010" onclick="selectYear(2010)" style="color:#C0C0C0">2010</button>
-                <button id="year-2009" onclick="selectYear(2009)" style="color:#C0C0C0">2009</button>
+            <div class="year-selector" id="year-selector" >
+                <button id="year-2025" onclick="selectYear(2025)" style="color:#C0C0C0; font-family: 'Jersey 10';">2025</button>
+                <button id="year-2024" onclick="selectYear(2024)" style="font-family: 'Jersey 10';">2024</button>
+                <button id="year-2023" onclick="selectYear(2023)" style="color:#C0C0C0; font-family: 'Jersey 10';">2023</button>
+                <button id="year-2022" onclick="selectYear(2022)" style="font-family: 'Jersey 10';">2022</button>
+                <button id="year-2021" onclick="selectYear(2021)" style="color:#C0C0C0; font-family: 'Jersey 10';">2021</button>
+                <button id="year-2020" onclick="selectYear(2020)" style="color:#C0C0C0; font-family: 'Jersey 10';">2020</button>
+                <button id="year-2019" onclick="selectYear(2019)" style="font-family: 'Jersey 10';">2019</button>
+                <button id="year-2018" onclick="selectYear(2018)" style="font-family: 'Jersey 10';">2018</button>
+                <button id="year-2017" onclick="selectYear(2017)" style="font-family: 'Jersey 10';">2017</button>
+                <button id="year-2016" onclick="selectYear(2016)" style="font-family: 'Jersey 10';">2016</button>
+                <button id="year-2015" onclick="selectYear(2015)" style="font-family: 'Jersey 10';">2015</button>
+                <button id="year-2014" onclick="selectYear(2014)" style="color:#C0C0C0; font-family: 'Jersey 10';">2014</button>
+                <button id="year-2013" onclick="selectYear(2013)" style="color:#C0C0C0; font-family: 'Jersey 10';">2013</button>
+                <button id="year-2012" onclick="selectYear(2012)" style="font-family: 'Jersey 10';">2012</button>
+                <button id="year-2011" onclick="selectYear(2011)" style="color:#C0C0C0; font-family: 'Jersey 10';">2011</button>
+                <button id="year-2010" onclick="selectYear(2010)" style="color:#C0C0C0; font-family: 'Jersey 10';">2010</button>
+                <button id="year-2009" onclick="selectYear(2009)" style="color:#C0C0C0; font-family: 'Jersey 10';">2009</button>
             </div>
         </div>
     

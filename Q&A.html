@@ -11,6 +11,9 @@
     <meta property="og:image" content="https://dimigo.games/IMAGES/%EA%B2%8C%EC%9E%84%EC%A6%88%20%EC%B0%BD%EC%97%85%EB%8F%99%EC%95%84%EB%A6%AC%20%EB%A1%9C%EA%B3%A0.png" />
     <meta property="og:url" content="https://dimigo.games/" />
     <meta name="google" content="notranslate">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&family=Jersey+10&family=Kolker+Brush&family=Konkhmer+Sleokchher&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <title>인디게임 개발 동아리, GAMES</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
@@ -38,6 +41,7 @@
             z-index: 1000;
             backdrop-filter: blur(12px);
             padding: 10px 0;
+            font-family: 'Jersey 10';
         }
 
         .navbar .nav-item p {
@@ -203,28 +207,27 @@
 </head>
 <body>
 
-    <!-- 네비게이션 바 -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <img src="./IMAGES/게임즈 로고_게임즈 창업동아리 회색.svg" alt="Banner Icon" style="max-width: 6vw; cursor: pointer;" onclick="navigateTo('index.html')">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><p onclick="navigateTo('/')">홈</p></li>
-                    <li class="nav-item"><p onclick="navigateTo('games.html')">게임</p></li>
-                    <li class="nav-item"><p onclick="navigateTo('achievements.html')">실적</p></li>
-                    <li class="nav-item"><p onclick="navigateTo('goods.html')">굿즈</p></li>
-                    <li class="nav-item"><p class="active">질문</p></li>
-                </ul>
+        <!-- Top Navigation -->
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <img src="./IMAGES/게임즈 로고_게임즈 창업동아리 회색.svg" alt="navigation logo Icon" style="max-width: 6vw; cursor: pointer;">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item"><p onclick="navigateTo('index.html')">Home</p></li>
+                        <li class="nav-item"><p onclick="navigateTo('games.html')">Game</p></li>
+                        <li class="nav-item"><p onclick="navigateTo('achievements.html')">Award</p></li>
+                        <li class="nav-item"><p class="active">Q&A</p></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
 
     <!-- Q&A 섹션 -->
     <section class="qa-section">
-        <h1>자주 묻는 질문 (Q&A)</h1>
+        <h1 style="font-family: 'Jersey 10'; font-size: 5rem;">Q&A</h1>
         <div class="qa-list">
             <div class="qa-item" onclick="toggleAnswer(0)">
                 <p style="margin : 8px 0;"><strong>Q. 게임 개발 경험이 없어도 가입할 수 있나요?</strong></p>
