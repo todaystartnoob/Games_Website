@@ -362,7 +362,7 @@
         
         <div class="year-selector-wrapper">
             <div class="year-selector" id="year-selector" >
-                <button id="year-2025" onclick="selectYear(2025)" style="color:#C0C0C0; font-family: 'Jersey 10';">2025</button>
+                <button id="year-2025" onclick="selectYear(2025)" style="font-family: 'Jersey 10';">2025</button>
                 <button id="year-2024" onclick="selectYear(2024)" style="font-family: 'Jersey 10';">2024</button>
                 <button id="year-2023" onclick="selectYear(2023)" style="color:#C0C0C0; font-family: 'Jersey 10';">2023</button>
                 <button id="year-2022" onclick="selectYear(2022)" style="font-family: 'Jersey 10';">2022</button>
@@ -578,7 +578,7 @@
 
         // 현재 연도 자동 선택
         let currentYear = new Date().getFullYear();
-        if (currentYear > 2024) currentYear = 2024;
+        if (currentYear > 2025) currentYear = 2025;
         selectYear(currentYear);
 
         // 연도 선택 기능
